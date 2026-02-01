@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import type { SiteSettings } from "@/types/content";
 import { useTranslations } from "next-intl";
@@ -10,70 +11,101 @@ type HeaderProps = {
 
 export function Header({ settings }: HeaderProps) {
   const t = useTranslations('header');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   
   const brandName = settings?.brandName || "LIVOTI STUDIO";
   const menu = settings?.header?.menu;
   const ctaLabel = settings?.header?.ctaLabel || t('cta');
-  const mobileCtaLabel = settings?.header?.mobileCtaLabel || t('mobileCta');
+
+  // Detect scroll for backdrop blur
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
-    if (element) element.scrollIntoView({ behavior: "smooth" });
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+      setIsMenuOpen(false);
+    }
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/50">
-      <div className="mx-auto max-w-280 px-6 md:px-8">
-        <div className="flex items-center justify-between h-16 md:h-20">
+    <>
+      <header 
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          isScrolled ? 'bg-background/80 backdrop-blur-md border-b border-border' : 'bg-transparent'
+        }`}
+      >
+        <div className="mx-auto max-w-350 px-6 md:px-12 lg:px-24">
+          <div className="flex items-center justify-between h-20 md:h-24">
+            {/* Logo */}
+            <button
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              className="text-sm md:text-base font-bold uppercase tracking-tight hover:opacity-60 transition-opacity duration-300"
+            >
+              {brandName.replace(' ', '')}
+            </button>
+
+            {/* Hamburger Button */}
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="flex flex-col gap-1.5 w-8 h-8 items-end justify-center group"
+              aria-label="Menu"
+            >
+              <span className={`w-full h-0.5 bg-foreground transition-all duration-300 ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`} />
+              <span className={`w-full h-0.5 bg-foreground transition-all duration-300 ${isMenuOpen ? 'opacity-0' : ''}`} />
+              <span className={`w-full h-0.5 bg-foreground transition-all duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* Full Screen Menu */}
+      <div
+        className={`fixed inset-0 bg-background z-40 transition-all duration-500 ease-in-out ${
+          isMenuOpen ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'
+        }`}
+      >
+        <nav className="h-full flex flex-col items-center justify-center gap-10">
           <button
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="text-xs md:text-sm uppercase tracking-[0.15em] font-medium hover:opacity-60 transition-opacity"
+            onClick={() => scrollToSection("case")}
+            className="text-5xl md:text-7xl font-bold uppercase tracking-tight hover:opacity-60 transition-all duration-300"
           >
-            {brandName}
+            {menu?.caseLabel || 'Casi'}
           </button>
-
-          <nav className="hidden lg:flex items-center gap-1 bg-white/60 backdrop-blur-sm border border-border/50 rounded-full px-2 py-1.5">
-            <button
-              onClick={() => scrollToSection("case")}
-              className="px-4 py-1.5 text-[13px] rounded-full hover:bg-white transition-colors"
-            >
-              {menu?.caseLabel || t('menu.case')}
-            </button>
-            <button
-              onClick={() => scrollToSection("servizi")}
-              className="px-4 py-1.5 text-[13px] rounded-full hover:bg-white transition-colors"
-            >
-              {menu?.servicesLabel || t('menu.services')}
-            </button>
-            <button
-              onClick={() => scrollToSection("metodo")}
-              className="px-4 py-1.5 text-[13px] rounded-full hover:bg-white transition-colors"
-            >
-              {menu?.methodLabel || t('menu.method')}
-            </button>
-            <button
-              onClick={() => scrollToSection("faq")}
-              className="px-4 py-1.5 text-[13px] rounded-full hover:bg-white transition-colors"
-            >
-              {menu?.faqLabel || t('menu.faq')}
-            </button>
-          </nav>
-
+          <button
+            onClick={() => scrollToSection("servizi")}
+            className="text-5xl md:text-7xl font-bold uppercase tracking-tight hover:opacity-60 transition-all duration-300"
+          >
+            {menu?.servicesLabel || 'Servizi'}
+          </button>
+          <button
+            onClick={() => scrollToSection("metodo")}
+            className="text-5xl md:text-7xl font-bold uppercase tracking-tight hover:opacity-60 transition-all duration-300"
+          >
+            {menu?.methodLabel || 'Metodo'}
+          </button>
+          <button
+            onClick={() => scrollToSection("faq")}
+            className="text-5xl md:text-7xl font-bold uppercase tracking-tight hover:opacity-60 transition-all duration-300"
+          >
+            {menu?.faqLabel || 'FAQ'}
+          </button>
+          
           <Button
             onClick={() => scrollToSection("contatti")}
-            className="hidden lg:block bg-accent text-accent-foreground hover:bg-accent/90 rounded-full px-5 h-9 text-[13px]"
+            className="mt-12 bg-foreground text-background hover:bg-foreground/90 rounded-none px-12 h-16 text-sm uppercase tracking-wider transition-all duration-300 hover:-translate-y-1"
           >
             {ctaLabel}
           </Button>
-
-          <Button
-            onClick={() => scrollToSection("contatti")}
-            className="lg:hidden bg-accent text-accent-foreground hover:bg-accent/90 rounded-full px-4 h-9 text-xs"
-          >
-            {mobileCtaLabel}
-          </Button>
-        </div>
+        </nav>
       </div>
-    </header>
+    </>
   );
 }

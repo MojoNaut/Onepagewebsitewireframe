@@ -1,20 +1,55 @@
+"use client";
+
+import { useEffect, useRef } from "react";
 import type { SiteSettings } from "@/types/content";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 interface ProcessStepCardProps {
   number: string;
   title: string;
   description: string;
+  index: number;
 }
 
-function ProcessStepCard({ number, title, description }: ProcessStepCardProps) {
+function ProcessStepCard({ number, title, description, index }: ProcessStepCardProps) {
+  const stepRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!stepRef.current) return;
+
+    gsap.from(stepRef.current, {
+      scrollTrigger: {
+        trigger: stepRef.current,
+        start: "top 80%",
+        end: "top 50%",
+        toggleActions: "play none none reverse",
+      },
+      opacity: 0,
+      y: 80,
+      duration: 0.9,
+      delay: index * 0.15,
+      ease: "power3.out",
+    });
+  }, [index]);
+
   return (
-    <div className="grid grid-cols-[80px_1fr] md:grid-cols-[100px_1fr] gap-6 md:gap-12 py-8 md:py-10 border-t border-border">
-      <span className="text-2xl md:text-3xl font-medium opacity-20">
+    <div ref={stepRef} className="grid grid-cols-[140px_1fr] md:grid-cols-[200px_1fr] gap-10 md:gap-20 py-14 md:py-20 border-t border-border">
+      {/* Number */}
+      <div className="text-7xl md:text-9xl lg:text-[160px] font-bold opacity-8 leading-none tracking-tighter">
         {number}
-      </span>
-      <div>
-        <h3 className="text-lg md:text-xl font-medium mb-3">{title}</h3>
-        <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-xl">
+      </div>
+
+      {/* Content */}
+      <div className="pt-3 md:pt-6">
+        <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold uppercase tracking-tight mb-6 md:mb-8">
+          {title}
+        </h3>
+        <p className="text-base md:text-lg lg:text-xl text-muted-foreground leading-relaxed max-w-3xl">
           {description}
         </p>
       </div>
@@ -27,6 +62,8 @@ type ProcessProps = {
 };
 
 export function Process({ copy }: ProcessProps) {
+  const circleRef = useRef<HTMLDivElement>(null);
+  
   const heading = copy?.heading || "Metodo";
   const steps = copy?.steps || [
     {
@@ -51,16 +88,42 @@ export function Process({ copy }: ProcessProps) {
     },
   ];
 
-  return (
-    <section id="metodo" className="border-t border-border">
-      <div className="mx-auto max-w-280 px-6 md:px-8 py-20 md:py-32">
-        <h2 className="text-xs uppercase tracking-[0.2em] font-medium mb-8 opacity-40">
-          {heading}
-        </h2>
+  useEffect(() => {
+    if (!circleRef.current) return;
 
-        <div>
+    gsap.to(circleRef.current, {
+      scrollTrigger: {
+        trigger: circleRef.current,
+        start: "top center",
+        end: "bottom center",
+        scrub: 1.5,
+      },
+      y: 250,
+      scale: 1.3,
+      ease: "none",
+    });
+  }, []);
+
+  return (
+    <section id="metodo" className="relative border-t border-border overflow-hidden">
+      {/* Decorative Circle */}
+      <div
+        ref={circleRef}
+        className="absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2 w-150 h-150 md:w-225 md:h-225 rounded-full opacity-35 pointer-events-none"
+        style={{
+          background: 'linear-gradient(135deg, #C4B5FD 0%, #BFDBFE 100%)',
+          filter: 'blur(120px)',
+        }}
+      />
+
+      <div className="relative z-10 mx-auto max-w-350 px-6 md:px-12 lg:px-24 py-24 md:py-40">
+        <p className="text-xs uppercase tracking-[0.3em] font-medium mb-20 md:mb-24 opacity-40">
+          {heading}
+        </p>
+
+        <div className="border-b border-border">
           {steps.map((step, index) => (
-            <ProcessStepCard key={index} {...step} />
+            <ProcessStepCard key={index} {...step} index={index} />
           ))}
         </div>
       </div>

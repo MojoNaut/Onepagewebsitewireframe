@@ -13,14 +13,15 @@ export function Footer({
 }: FooterProps) {
   return (
     <footer className="border-t border-border">
-      <div className="mx-auto max-w-280 px-6 md:px-8 py-12 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+      <div className="mx-auto max-w-350 px-6 md:px-12 lg:px-24 py-16 md:py-24">
+        {/* Main Footer Content */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-14 md:gap-20 mb-16">
           {/* Brand */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-[0.15em] mb-3">
+            <h3 className="text-base md:text-lg font-bold uppercase tracking-tight mb-4">
               {brandName}
             </h3>
-            <p className="text-sm text-muted-foreground max-w-md">
+            <p className="text-sm md:text-base text-muted-foreground max-w-md leading-relaxed">
               {footerLine}
             </p>
           </div>
@@ -30,7 +31,7 @@ export function Footer({
             {contactEmail && (
               <a
                 href={`mailto:${contactEmail}`}
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                className="text-sm md:text-base text-muted-foreground hover:text-foreground transition-colors duration-300"
               >
                 {contactEmail}
               </a>
@@ -40,16 +41,18 @@ export function Footer({
                 href={linkedinUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                className="text-sm md:text-base text-muted-foreground hover:text-foreground transition-colors duration-300"
               >
-                LinkedIn
+                LinkedIn →
               </a>
             )}
           </div>
         </div>
-        <div className="mt-12 pt-8 border-t border-border text-center">
-          <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} Lorenzo Livoti
+
+        {/* Bottom Bar */}
+        <div className="pt-8 border-t border-border text-center">
+          <p className="text-xs md:text-sm text-muted-foreground">
+            © {new Date().getFullYear()} Lorenzo Livoti. Tutti i diritti riservati.
           </p>
         </div>
       </div>

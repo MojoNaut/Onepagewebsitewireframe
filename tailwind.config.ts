@@ -1,5 +1,3 @@
-
-
 import type { Config } from "tailwindcss";
 
 const config: Config = {
@@ -10,23 +8,23 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      colors: {
-        background: "var(--color-background)",
-        foreground: "var(--color-foreground)",
-        muted: {
-          DEFAULT: "var(--color-muted)",
-          foreground: "var(--color-muted-foreground)",
-        },
-        accent: {
-          DEFAULT: "var(--color-accent)",
-          foreground: "var(--color-accent-foreground)",
-        },
-        border: "var(--color-border)",
+      maxWidth: {
+        '350': '1400px',
       },
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+      width: {
+        '125': '500px',
+        '150': '600px',
+        '175': '700px',
+        '225': '900px',
+      },
+      height: {
+        '125': '500px',
+        '150': '600px',
+        '175': '700px',
+        '225': '900px',
+      },
+      zIndex: {
+        '9999': '9999',
       },
     },
   },

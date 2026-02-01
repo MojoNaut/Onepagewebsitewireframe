@@ -1,23 +1,23 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import type { SiteSettings } from "@/types/content";
 import { useTranslations } from "next-intl";
+import gsap from "gsap";
+import SplitType from "split-type";
 
 type HeroProps = {
   settings?: SiteSettings;
 };
 
-function splitBrand(brandName: string) {
-  const clean = brandName.trim();
-  if (!clean) return { line1: "", line2: "" };
-  const parts = clean.split(/\s+/);
-  if (parts.length === 1) return { line1: parts[0], line2: "" };
-  return { line1: parts[0], line2: parts.slice(1).join(" ") };
-}
-
 export function Hero({ settings }: HeroProps) {
   const t = useTranslations('hero');
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const headlineRef = useRef<HTMLHeadingElement>(null);
+  const subheadlineRef = useRef<HTMLParagraphElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
+  const circleRef = useRef<HTMLDivElement>(null);
   
   const brandName = settings?.brandName || "LIVOTI STUDIO";
   const headline = settings?.headline || t('headline');
@@ -30,48 +30,129 @@ export function Hero({ settings }: HeroProps) {
     if (element) element.scrollIntoView({ behavior: "smooth" });
   };
 
-  const { line1, line2 } = splitBrand(brandName);
+  const brandWords = brandName.trim().split(/\s+/);
+
+  useEffect(() => {
+    if (!titleRef.current) return;
+
+    const split = new SplitType(titleRef.current, { types: 'chars' });
+    const chars = split.chars;
+    if (!chars) return;
+
+    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+    // Gradient circle
+    if (circleRef.current) {
+      tl.from(circleRef.current, {
+        scale: 0,
+        opacity: 0,
+        duration: 1.5,
+        ease: "power2.out",
+      }, 0);
+    }
+
+    // Brand letters
+    tl.from(chars, {
+      opacity: 0,
+      y: 120,
+      rotateX: -90,
+      stagger: 0.025,
+      duration: 0.9,
+    }, "-=1.2");
+
+    // Headline
+    tl.from(
+      headlineRef.current,
+      { opacity: 0, y: 40, duration: 1 },
+      "-=0.5"
+    );
+
+    // Subheadline
+    if (subheadlineRef.current) {
+      tl.from(
+        subheadlineRef.current,
+        { opacity: 0, y: 30, duration: 0.8 },
+        "-=0.6"
+      );
+    }
+
+    // CTAs
+    tl.from(
+      ctaRef.current,
+      { opacity: 0, y: 20, duration: 0.7 },
+      "-=0.5"
+    );
+
+    return () => {
+      split.revert();
+    };
+  }, []);
 
   return (
-    <section className="mx-auto max-w-280 px-6 md:px-8 pt-20 md:pt-28 pb-24 md:pb-32">
-      <div className="text-center mb-12 md:mb-16">
-        <h1 className="text-[18vw] md:text-[12vw] lg:text-[140px] leading-[0.85] font-bold uppercase tracking-tighter">
-          {line1}
-          {line2 ? (
-            <>
-              <br />
-              {line2}
-            </>
-          ) : null}
-        </h1>
-      </div>
+    <section className="relative min-h-[90vh] flex items-center overflow-hidden">
+      {/* Gradient Circle - UI/UX Enhancement */}
+      <div
+        ref={circleRef}
+        className="absolute -top-32 -right-32 md:-top-48 md:-right-48 w-125 h-125 md:w-175 md:h-175 rounded-full opacity-50 pointer-events-none"
+        style={{
+          background: 'linear-gradient(135deg, #C4B5FD 0%, #BFDBFE 100%)',
+          filter: 'blur(80px)',
+        }}
+      />
 
-      <div className="text-center mb-6 md:mb-8 max-w-3xl mx-auto">
-        <h2 className="text-base md:text-xl lg:text-2xl uppercase tracking-[0.15em] font-medium leading-tight">
-          {headline}
-        </h2>
-      </div>
+      <div className="relative z-10 mx-auto max-w-350 w-full px-6 md:px-12 lg:px-24 py-32 md:py-48">
+        {/* Brand Name - Left Aligned */}
+        <div className="mb-24 md:mb-32">
+          <h1
+            ref={titleRef}
+            className="text-[80px] md:text-[120px] lg:text-[180px] leading-[0.85] font-bold uppercase tracking-tighter"
+          >
+            {brandWords.map((word, index) => (
+              <div key={index} className="inline-block">
+                {word}
+                {index < brandWords.length - 1 && '.'}
+                {index < brandWords.length - 1 && <br />}
+              </div>
+            ))}
+          </h1>
+        </div>
 
-      {subheadline ? (
-        <p className="text-center text-sm md:text-base text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed">
-          {subheadline}
-        </p>
-      ) : null}
+        {/* Headline - Centered, Larger */}
+        <div className="max-w-5xl mx-auto text-center mb-12 md:mb-16">
+          <h2
+            ref={headlineRef}
+            className="text-[32px] md:text-[42px] lg:text-[52px] font-semibold tracking-tight leading-[1.1]"
+          >
+            {headline}
+          </h2>
+        </div>
 
-      <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-        <Button
-          size="lg"
-          onClick={() => scrollToSection("contatti")}
-          className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-full px-8 h-11 text-sm"
-        >
-          {primaryCta}
-        </Button>
-        <button
-          onClick={() => scrollToSection("case")}
-          className="text-sm underline underline-offset-4 hover:no-underline transition-all"
-        >
-          {secondaryCta}
-        </button>
+        {/* Subheadline - More Spacing */}
+        {subheadline ? (
+          <p
+            ref={subheadlineRef}
+            className="text-[17px] md:text-[19px] text-muted-foreground max-w-2xl mx-auto text-center mb-20 md:mb-24 leading-relaxed"
+          >
+            {subheadline}
+          </p>
+        ) : null}
+
+        {/* CTAs - Enhanced Hover */}
+        <div ref={ctaRef} className="flex flex-col sm:flex-row items-center justify-center gap-8">
+          <Button
+            size="lg"
+            onClick={() => scrollToSection("contatti")}
+            className="bg-foreground text-background hover:bg-foreground/90 rounded-none px-12 h-14 text-sm uppercase tracking-wider font-medium transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+          >
+            {primaryCta}
+          </Button>
+          <button
+            onClick={() => scrollToSection("case")}
+            className="text-sm uppercase tracking-wider font-medium underline underline-offset-8 hover:no-underline transition-all duration-300 decoration-2 hover:opacity-70"
+          >
+            {secondaryCta} →
+          </button>
+        </div>
       </div>
     </section>
   );

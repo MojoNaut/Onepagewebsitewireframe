@@ -1,23 +1,23 @@
 @import "tailwindcss";
 
-@layer base {
-  :root {
-    --color-background: #ffffff;
-    --color-foreground: #0f172a;
-    --color-muted: #f1f5f9;
-    --color-muted-foreground: #64748b;
-    --color-accent: #3b82f6;
-    --color-accent-foreground: #ffffff;
-    --color-border: #e2e8f0;
-    
-    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-    
-    --radius: 0.5rem;
-  }
-
-html {
-  scroll-behavior: smooth;
+@theme {
+  --color-background: #F5F1E8;
+  --color-foreground: #1a1a1a;
+  --color-muted: #E8E4DC;
+  --color-muted-foreground: #666666;
+  --color-accent: #1a1a1a;
+  --color-accent-foreground: #F5F1E8;
+  --color-border: #D4CFC4;
+  
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  
+  --radius: 0rem;
 }
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
 
   body {
     background-color: var(--color-background);
@@ -54,4 +54,27 @@ html {
       padding-right: 2rem;
     }
   }
+}
+
+/* Custom Cursor - Hide default on desktop */
+@media (min-width: 1024px) {
+  * {
+    cursor: none !important;
+  }
+}
+
+/* Fade-in animation for FAQ */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out;
 }
