@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/Button";
 import { Label } from "@/components/ui/label";
 import type { SiteSettings } from "@/types/content";
 import { useTranslations } from "next-intl";

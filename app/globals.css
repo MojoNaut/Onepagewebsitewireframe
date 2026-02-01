@@ -1,17 +1,70 @@
 @import "tailwindcss";
 
 @theme {
+  /* ========================================
+     COLOR PALETTE - Warm minimal aesthetic
+     ======================================== */
   --color-background: #F5F1E8;
   --color-foreground: #1a1a1a;
+  
+  /* Muted colors */
   --color-muted: #E8E4DC;
   --color-muted-foreground: #666666;
-  --color-accent: #1a1a1a;
-  --color-accent-foreground: #F5F1E8;
+  
+  /* Accent colors (muted lavender for CTAs) */
+  --color-accent: #C4B5FD;
+  --color-accentHover: #A78BFA;
+  --color-accentForeground: #1a1a1a;
+  
+  /* Alternative accent (neutral/black) */
+  --color-accentNeutral: #1a1a1a;
+  --color-accentNeutralHover: #333333;
+  
+  /* Border colors */
   --color-border: #D4CFC4;
+  --color-borderSubtle: #E8E4DC;
   
+  /* Status colors (subtle, not bright) */
+  --color-success: #86EFAC;
+  --color-successForeground: #166534;
+  --color-error: #FCA5A5;
+  --color-errorForeground: #991B1B;
+  --color-warning: #FCD34D;
+  --color-warningForeground: #92400E;
+  
+  /* ========================================
+     TYPOGRAPHY
+     ======================================== */
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
   
-  --radius: 0rem;
+  /* ========================================
+     SPACING (8pt grid)
+     ======================================== */
+  --spacing-1: 0.25rem;   /* 4px */
+  --spacing-2: 0.5rem;    /* 8px */
+  --spacing-3: 0.75rem;   /* 12px */
+  --spacing-4: 1rem;      /* 16px */
+  --spacing-5: 1.25rem;   /* 20px */
+  --spacing-6: 1.5rem;    /* 24px */
+  --spacing-8: 2rem;      /* 32px */
+  --spacing-10: 2.5rem;   /* 40px */
+  --spacing-12: 3rem;     /* 48px */
+  --spacing-16: 4rem;     /* 64px */
+  --spacing-20: 5rem;     /* 80px */
+  --spacing-24: 6rem;     /* 96px */
+  
+  /* ========================================
+     BORDER RADIUS
+     ======================================== */
+  --radius-none: 0;
+  --radius-sm: 0.375rem;  /* 6px */
+  --radius: 0.5rem;       /* 8px - default */
+  --radius-md: 0.625rem;  /* 10px */
+  --radius-lg: 0.75rem;   /* 12px */
+  --radius-xl: 1rem;      /* 16px */
+  --radius-2xl: 1.5rem;   /* 24px */
+  --radius-full: 9999px;  /* Pills/badges */
 }
 
 @layer base {
@@ -25,9 +78,21 @@
     font-family: var(--font-sans);
     font-feature-settings: "rlig" 1, "calt" 1;
   }
+  
+  /* Smooth scrolling with offset for sticky header */
+  * {
+    scroll-margin-top: 80px;
+  }
+  
+  /* Focus visible for accessibility */
+  *:focus-visible {
+    outline: 2px solid var(--color-foreground);
+    outline-offset: 2px;
+  }
 }
 
 @layer utilities {
+  /* Section padding utility */
   .section-padding {
     padding-top: 5rem;
     padding-bottom: 5rem;
@@ -40,6 +105,7 @@
     }
   }
 
+  /* Container utility (matching HJM Studio max-width) */
   .container {
     margin-left: auto;
     margin-right: auto;
@@ -54,16 +120,36 @@
       padding-right: 2rem;
     }
   }
+  
+  /* Text balance for headings */
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  /* Hairline divider */
+  .hairline-border {
+    border-width: 1px;
+  }
+  
+  /* Hide scrollbar but keep functionality */
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
 }
 
-/* Custom Cursor - Hide default on desktop */
+/* Custom Cursor - Hide default on desktop (HJM Studio style) */
 @media (min-width: 1024px) {
   * {
     cursor: none !important;
   }
 }
 
-/* Fade-in animation for FAQ */
+/* Animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -77,4 +163,32 @@
 
 .animate-fadeIn {
   animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-slideIn {
+  animation: slideIn 0.3s ease-out;
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  html {
+    scroll-behavior: auto;
+  }
 }

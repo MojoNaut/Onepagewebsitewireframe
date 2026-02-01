@@ -1,3 +1,5 @@
+// lib/content.ts
+
 import type { SiteContent } from '@/types/content';
 import { getSanityClient } from '@/lib/sanityClient';
 import {

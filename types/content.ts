@@ -1,3 +1,5 @@
+// types/content.ts
+
 export interface SiteSettings {
   brandName: string;
   headline?: string;

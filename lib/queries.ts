@@ -1,3 +1,5 @@
+// lib/queries.ts
+
 export const siteSettingsQuery = `*[_type == "siteSettings"][0]{
   brandName,
   headline,

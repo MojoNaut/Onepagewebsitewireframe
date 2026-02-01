@@ -1,3 +1,5 @@
+// lib/sanityClient.ts
+
 import { createClient } from '@sanity/client';
 
 export function getSanityClient() {
