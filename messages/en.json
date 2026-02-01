@@ -1,0 +1,41 @@
+{
+  "header": {
+    "menu": {
+      "case": "Work",
+      "services": "Services",
+      "method": "Method",
+      "faq": "FAQ"
+    },
+    "cta": "Let's talk about your project",
+    "mobileCta": "Let's talk"
+  },
+  "hero": {
+    "headline": "Essential digital projects.",
+    "subheadline": "Building MVPs, web apps and landing pages. Clear scope, rapid delivery, flexible stack.",
+    "primaryCta": "Let's talk about your project",
+    "secondaryCta": "View work"
+  },
+  "services": {
+    "heading": "Services"
+  },
+  "work": {
+    "heading": "Work",
+    "intro": "Real projects, measurable results.",
+    "featuredLabel": "Featured",
+    "emptyText": "No projects available at the moment.",
+    "emptyCtaLabel": "Contact me"
+  },
+  "faq": {
+    "heading": "FAQ",
+    "emptyText": "No frequently asked questions at the moment."
+  },
+  "contact": {
+    "title": "Let's talk about your project",
+    "subtitle": "Tell me what you want to build. I respond within 24 hours with next steps or free 30-min discovery call.",
+    "submitLabel": "Send"
+  },
+  "footer": {
+    "tagline": "Product-minded developer. MVP, web apps, landing pages.",
+    "location": "Based in Veneto, Italy. Working worldwide."
+  }
+}

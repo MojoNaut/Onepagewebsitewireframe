@@ -1,0 +1,41 @@
+{
+  "header": {
+    "menu": {
+      "case": "Case",
+      "services": "Servizi",
+      "method": "Metodo",
+      "faq": "FAQ"
+    },
+    "cta": "Parliamo del progetto",
+    "mobileCta": "Parliamo"
+  },
+  "hero": {
+    "headline": "Progetti digitali essenziali.",
+    "subheadline": "Sviluppo MVP, web app e landing page. Scope chiaro, consegna rapida, stack flessibile.",
+    "primaryCta": "Parliamo del progetto",
+    "secondaryCta": "Vedi case"
+  },
+  "services": {
+    "heading": "Servizi"
+  },
+  "work": {
+    "heading": "Case",
+    "intro": "Progetti reali, risultati misurabili.",
+    "featuredLabel": "Featured",
+    "emptyText": "Nessun progetto disponibile al momento.",
+    "emptyCtaLabel": "Contattami"
+  },
+  "faq": {
+    "heading": "FAQ",
+    "emptyText": "Nessuna domanda frequente al momento."
+  },
+  "contact": {
+    "title": "Parliamo del tuo progetto",
+    "subtitle": "Raccontami cosa vuoi costruire. Rispondo entro 24 ore con prossimi step o call gratuita di 30 minuti.",
+    "submitLabel": "Invia"
+  },
+  "footer": {
+    "tagline": "Developer con mindset product. MVP, web app, landing page.",
+    "location": "Base in Veneto, Italia. Lavoro in tutto il mondo."
+  }
+}
