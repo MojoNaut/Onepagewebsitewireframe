@@ -1,3 +1,5 @@
+// components/sections/Contact.tsx
+
 "use client";
 
 import { useEffect, useRef } from "react";

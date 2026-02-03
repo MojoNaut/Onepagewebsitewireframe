@@ -20,7 +20,7 @@ export function FitFilter({ copy }: FitFilterProps) {
   ];
 
   return (
-    <section id="fit" className="border-t border-border">
+    <section id="fit" className=" scroll-mt-24 border-t border-border">
       <div className="mx-auto max-w-280 px-6 md:px-8 py-20 md:py-32">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
           {/* Perfect For */}

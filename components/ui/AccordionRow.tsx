@@ -29,9 +29,17 @@ export function AccordionRow({
 
   // Calculate content height for smooth animation
   useEffect(() => {
+    let frameId: number;
     if (contentRef.current) {
-      setHeight(isOpen ? contentRef.current.scrollHeight : 0);
+      frameId = window.requestAnimationFrame(() => {
+        setHeight(isOpen ? contentRef.current!.scrollHeight : 0);
+      });
     }
+    return () => {
+      if (frameId) {
+        window.cancelAnimationFrame(frameId);
+      }
+    };
   }, [isOpen]);
 
   // Recalculate height on window resize

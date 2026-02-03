@@ -105,7 +105,7 @@ export function Process({ copy }: ProcessProps) {
   }, []);
 
   return (
-    <section id="metodo" className="relative border-t border-border overflow-hidden">
+    <section id="metodo" className="scroll-mt-24 relative border-t border-border overflow-hidden">
       {/* Decorative Circle */}
       <div
         ref={circleRef}

@@ -139,7 +139,7 @@ export function Services({ services = [] }: ServicesProps) {
   const displayServices = services.length > 0 ? services : defaultServices;
 
   return (
-    <section id="servizi" className="border-t border-border">
+    <section id="servizi" className="scroll-mt-24 border-t border-border">
       <div className="mx-auto max-w-350 px-6 md:px-12 lg:px-24 py-24 md:py-40">
         {/* Label */}
         <p className="text-xs uppercase tracking-[0.3em] font-medium mb-20 md:mb-24 opacity-40">

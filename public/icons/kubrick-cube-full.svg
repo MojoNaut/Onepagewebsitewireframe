@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 295.60 294.50" fill="none" role="img" aria-label="Kubrick cube full">
+<style>
+.face { stroke: currentColor; stroke-width: 2.2; stroke-linejoin: miter; stroke-linecap: square; }
+      .edge { stroke: currentColor; stroke-width: 3.6; stroke-linejoin: miter; stroke-linecap: square; opacity: .98; }
+      .cubie { transform-box: fill-box; transform-origin: center; }
+</style>
+<g class="edge">
+<polygon points="147.80,15.80 279.80,81.80 147.80,147.80 15.80,81.80" fill="none"/>
+<polyline points="15.80,213.80 15.80,81.80 147.80,15.80 147.80,147.80" fill="none"/>
+<polyline points="279.80,213.80 279.80,81.80 147.80,147.80 147.80,279.80" fill="none"/>
+<line x1="15.80" y1="213.80" x2="147.80" y2="279.80"/>
+</g>
+<g class="face">
+<g id="cubie-2-0-0" class="cubie">
+<polygon points="277.60,212.70 238.00,232.50 238.00,192.90 277.60,173.10" fill="#c2bcdf"/>
+</g>
+<g id="cubie-0-2-0" class="cubie">
+<polygon points="18.00,212.70 57.60,232.50 57.60,192.90 18.00,173.10" fill="#f5d0fe"/>
+</g>
+<g id="cubie-0-0-2" class="cubie">
+<polygon points="147.80,18.00 187.40,37.80 147.80,57.60 108.20,37.80" fill="#c2e9fd"/>
+</g>
+<g id="cubie-2-1-0" class="cubie">
+<polygon points="233.60,234.70 194.00,254.50 194.00,214.90 233.60,195.10" fill="#c8bade"/>
+</g>
+<g id="cubie-1-2-0" class="cubie">
+<polygon points="62.00,234.70 101.60,254.50 101.60,214.90 62.00,195.10" fill="#ecd2fd"/>
+</g>
+<g id="cubie-2-0-1" class="cubie">
+<polygon points="277.60,168.70 238.00,188.50 238.00,148.90 277.60,129.10" fill="#b7c0de"/>
+</g>
+<g id="cubie-0-2-1" class="cubie">
+<polygon points="18.00,168.70 57.60,188.50 57.60,148.90 18.00,129.10" fill="#e1d7fd"/>
+</g>
+<g id="cubie-1-0-2" class="cubie">
+<polygon points="191.80,40.00 231.40,59.80 191.80,79.60 152.20,59.80" fill="#cbe3fd"/>
+</g>
+<g id="cubie-0-1-2" class="cubie">
+<polygon points="103.80,40.00 143.40,59.80 103.80,79.60 64.20,59.80" fill="#d3e1fd"/>
+</g>
+<g id="cubie-2-2-0" class="cubie">
+<polygon points="189.60,256.70 150.00,276.50 150.00,236.90 189.60,217.10" fill="#cdb9df"/>
+<polygon points="106.00,256.70 145.60,276.50 145.60,236.90 106.00,217.10" fill="#e9d3fe"/>
+</g>
+<g id="cubie-2-1-1" class="cubie">
+<polygon points="233.60,190.70 194.00,210.50 194.00,170.90 233.60,151.10" fill="#bfbede"/>
+</g>
+<g id="cubie-1-2-1" class="cubie">
+<polygon points="62.00,190.70 101.60,210.50 101.60,170.90 62.00,151.10" fill="#e0d7fd"/>
+</g>
+<g id="cubie-2-0-2" class="cubie">
+<polygon points="235.80,62.00 275.40,81.80 235.80,101.60 196.20,81.80" fill="#d1e1fd"/>
+<polygon points="277.60,124.70 238.00,144.50 238.00,104.90 277.60,85.10" fill="#b2c3de"/>
+</g>
+<g id="cubie-1-1-2" class="cubie">
+<polygon points="147.80,62.00 187.40,81.80 147.80,101.60 108.20,81.80" fill="#d6e0fd"/>
+</g>
+<g id="cubie-0-2-2" class="cubie">
+<polygon points="59.80,62.00 99.40,81.80 59.80,101.60 20.20,81.80" fill="#dbdffd"/>
+<polygon points="18.00,124.70 57.60,144.50 57.60,104.90 18.00,85.10" fill="#d7dbfd"/>
+</g>
+<g id="cubie-2-2-1" class="cubie">
+<polygon points="189.60,212.70 150.00,232.50 150.00,192.90 189.60,173.10" fill="#c4bcde"/>
+<polygon points="106.00,212.70 145.60,232.50 145.60,192.90 106.00,173.10" fill="#dfd6fd"/>
+</g>
+<g id="cubie-2-1-2" class="cubie">
+<polygon points="191.80,84.00 231.40,103.80 191.80,123.60 152.20,103.80" fill="#d8dffd"/>
+<polygon points="233.60,146.70 194.00,166.50 194.00,126.90 233.60,107.10" fill="#b9c0de"/>
+</g>
+<g id="cubie-1-2-2" class="cubie">
+<polygon points="103.80,84.00 143.40,103.80 103.80,123.60 64.20,103.80" fill="#dcdefd"/>
+<polygon points="62.00,146.70 101.60,166.50 101.60,126.90 62.00,107.10" fill="#d8dafd"/>
+</g>
+<g id="cubie-2-2-2" class="cubie">
+<polygon points="147.80,106.00 187.40,125.80 147.80,145.60 108.20,125.80" fill="#ddddfd"/>
+<polygon points="189.60,168.70 150.00,188.50 150.00,148.90 189.60,129.10" fill="#bebede"/>
+<polygon points="106.00,168.70 145.60,188.50 145.60,148.90 106.00,129.10" fill="#d9d9fd"/>
+</g>
+</g>
+</svg>
