@@ -1,9 +1,20 @@
 // sanity/schemaTypes/index.ts
 import { siteSettingsType } from "./siteSettingsType";
+import { 
+  localizedString, 
+  localizedText, 
+  localizedStringArray 
+} from "./objects/localizedString";
 
-export const schemaTypes = [siteSettingsType];
+export const schemaTypes = [
+  // Objects (devono essere prima dei document che li usano)
+  localizedString,
+  localizedText,
+  localizedStringArray,
+  // Documents
+  siteSettingsType,
+];
 
-// Mantengo anche l'export `schema` così il tuo sanity.config.ts resta pulito
 export const schema = {
   types: schemaTypes,
 };

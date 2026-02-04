@@ -5,40 +5,76 @@ export const siteSettingsType = defineType({
   name: "siteSettings",
   title: "Site Settings",
   type: "document",
+  groups: [
+    { name: "hero", title: "Hero Section" },
+    { name: "general", title: "General", default: true },
+  ],
   fields: [
+    // ===== GENERAL =====
     defineField({
       name: "brandName",
-      title: "Brand / Prefix (es. CREIAMO)",
-      type: "string",
+      title: "Brand Name",
+      type: "localizedString",
+      group: "general",
+      description: "Es: CREIAMO / WE CREATE",
     }),
 
     defineField({
-      name: "hero",
-      title: "Hero",
-      type: "object",
-      fields: [
-        defineField({ name: "headline", title: "Headline", type: "string" }),
-        defineField({ name: "subheadline", title: "Subheadline", type: "text" }),
+      name: "contactEmail",
+      title: "Contact Email",
+      type: "string",
+      group: "general",
+    }),
 
+    defineField({
+      name: "linkedinUrl",
+      title: "LinkedIn URL",
+      type: "url",
+      group: "general",
+    }),
+
+    // ===== HERO =====
+    defineField({
+      name: "hero",
+      title: "Hero Section",
+      type: "object",
+      group: "hero",
+      fields: [
         defineField({
           name: "manifestoLines",
           title: "Manifesto Lines (max 3)",
-          type: "array",
-          of: [{ type: "string" }],
-          validation: (rule) => rule.max(3),
+          type: "localizedStringArray",
+          description: "Le parole che scorrono sotto il brand name",
+        }),
+
+        defineField({
+          name: "headline",
+          title: "Headline",
+          type: "localizedString",
+          description: "Testo sotto il manifesto",
         }),
 
         defineField({
           name: "primaryCtaLabel",
-          title: "Primary CTA",
-          type: "string",
+          title: "Primary CTA Button",
+          type: "localizedString",
         }),
+
         defineField({
           name: "secondaryCtaLabel",
-          title: "Secondary CTA",
-          type: "string",
+          title: "Secondary CTA Link",
+          type: "localizedString",
         }),
       ],
     }),
   ],
+
+  preview: {
+    prepare() {
+      return {
+        title: "Site Settings",
+        subtitle: "Configurazione globale del sito",
+      };
+    },
+  },
 });

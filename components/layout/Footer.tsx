@@ -23,7 +23,7 @@ export function Footer({
 }: FooterProps) {
   const currentYear = new Date().getFullYear();
 
-  const safeBrand = brandName.endsWith(".") ? brandName : `${brandName}.`;
+ const safeBrand = brandName?.endsWith(".") ? brandName : `${brandName ?? "STUDIO"}.`;
 
   return (
     <footer className="border-t border-foreground/15">

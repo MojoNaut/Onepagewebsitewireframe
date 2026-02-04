@@ -1,46 +1,41 @@
 // lib/queries.ts
+import groq from "groq";
 
-export const siteSettingsQuery = `*[_type == "siteSettings"][0]{
-  brandName,
-  headline,
-  subheadline,
-  footerLine,
-  contactEmail,
-  linkedinUrl,
-  header{menu{caseLabel,servicesLabel,methodLabel,faqLabel},ctaLabel,mobileCtaLabel},
- hero{primaryCtaLabel,secondaryCtaLabel,manifestoLines},
-  fitFilter{perfectTitle,perfectItems,notForTitle,notForItems},
-  process{heading,steps[]{number,title,description}},
-  workSection{heading,intro,featuredLabel,emptyText,emptyCtaLabel},
-  faqSection{heading,emptyText},
-  contactSection{title,subtitle,microcopy,submitLabel}
-}`;
+export const siteSettingsQuery = groq`
+  *[_type == "siteSettings"][0] {
+    "brandName": brandName[$locale],
+    contactEmail,
+    linkedinUrl,
+    "hero": {
+      "manifestoLines": hero.manifestoLines[$locale],
+      "headline": hero.headline[$locale],
+      "primaryCtaLabel": hero.primaryCtaLabel[$locale],
+      "secondaryCtaLabel": hero.secondaryCtaLabel[$locale]
+    }
+  }
+`;
 
-export const servicesQuery = `*[_type == "service"]|order(order asc){
-  _id,
-  title,
-  tagline,
-  deliverables,
-  idealFor,
-  order
-}`;
+export const servicesQuery = groq`
+  *[_type == "service"] | order(order asc) {
+    _id,
+    title,
+    description
+  }
+`;
 
-export const workItemsQuery = `*[_type == "workItem"]|order(featured desc, order asc){
-  _id,
-  title,
-  type,
-  summary,
-  challenge,
-  result,
-  coverImage{asset,alt},
-  liveUrl,
-  demoUrl,
-  order,
-  featured
-}`;
+export const workItemsQuery = groq`
+  *[_type == "workItem"] | order(order asc) {
+    _id,
+    title,
+    description,
+    "imageUrl": image.asset->url
+  }
+`;
 
-export const faqsQuery = `*[_type == "faq"]|order(_createdAt asc){
-  _id,
-  question,
-  answer
-}`;
+export const faqsQuery = groq`
+  *[_type == "faq"] | order(order asc) {
+    _id,
+    question,
+    answer
+  }
+`;

@@ -11,8 +11,15 @@ import { Contact } from "@/components/sections/Contact";
 import { Footer } from "@/components/layout/Footer";
 import { loadSiteContent } from "@/lib/content";
 
-export default async function HomePage() {
-  const content = await loadSiteContent();
+type Props = {
+  params: Promise<{ locale: string }>;
+};
+
+export default async function HomePage({ params }: Props) {
+  const { locale } = await params;
+  
+  // Passa locale a loadSiteContent
+  const content = await loadSiteContent(locale);
   const { siteSettings, services, workItems, faqs } = content;
 
   return (
@@ -20,15 +27,17 @@ export default async function HomePage() {
       <Header settings={siteSettings} />
 
       <main>
-  <Hero settings={siteSettings} />
-  <Services services={services} />
-  <FitFilter copy={siteSettings.fitFilter} />
-  <Process copy={siteSettings.process} />
-  <Work workItems={workItems} copy={siteSettings.workSection} />
-  <FAQ faqs={faqs} copy={siteSettings.faqSection} />
-  <Contact contactEmail={siteSettings.contactEmail} copy={siteSettings.contactSection} />
-</main>
-
+        <Hero settings={siteSettings} />
+        <Services services={services} />
+        <FitFilter copy={siteSettings.fitFilter} />
+        <Process copy={siteSettings.process} />
+        <Work workItems={workItems} copy={siteSettings.workSection} />
+        <FAQ faqs={faqs} copy={siteSettings.faqSection} />
+        <Contact
+          contactEmail={siteSettings.contactEmail}
+          copy={siteSettings.contactSection}
+        />
+      </main>
 
       <Footer
         brandName={siteSettings.brandName}
