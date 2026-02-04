@@ -20,6 +20,7 @@ export interface SiteSettings {
   hero?: {
     primaryCtaLabel?: string;
     secondaryCtaLabel?: string;
+      manifestoLines?: string[];
   };
   fitFilter?: {
     perfectTitle?: string;

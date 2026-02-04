@@ -1,3 +1,4 @@
+
 {
   "header": {
     "menu": {
@@ -9,12 +10,15 @@
     "cta": "Let's talk about your project",
     "mobileCta": "Let's talk"
   },
-  "hero": {
-    "headline": "Essential digital projects.",
-    "subheadline": "Building MVPs, web apps and landing pages. Clear scope, rapid delivery, flexible stack.",
-    "primaryCta": "Let's talk about your project",
-    "secondaryCta": "View work"
-  },
+"hero": {
+  "headline": "Essential digital projects.",
+  "subheadline": "Building MVPs, web apps and landing pages. Clear scope, rapid delivery, flexible stack.",
+  "manifestoLine1": "MVP",
+  "manifestoLine2": "WEB APP",
+  "manifestoLine3": "SITES THAT GROW",
+  "primaryCta": "Let's talk about your project",
+  "secondaryCta": "View work"
+},
   "services": {
     "heading": "Services"
   },

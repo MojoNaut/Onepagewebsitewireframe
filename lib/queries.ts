@@ -8,7 +8,7 @@ export const siteSettingsQuery = `*[_type == "siteSettings"][0]{
   contactEmail,
   linkedinUrl,
   header{menu{caseLabel,servicesLabel,methodLabel,faqLabel},ctaLabel,mobileCtaLabel},
-  hero{primaryCtaLabel,secondaryCtaLabel},
+ hero{primaryCtaLabel,secondaryCtaLabel,manifestoLines},
   fitFilter{perfectTitle,perfectItems,notForTitle,notForItems},
   process{heading,steps[]{number,title,description}},
   workSection{heading,intro,featuredLabel,emptyText,emptyCtaLabel},

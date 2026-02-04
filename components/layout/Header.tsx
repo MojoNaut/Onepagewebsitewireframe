@@ -133,7 +133,7 @@ export function Header({ settings }: HeaderProps) {
                   hidden lg:inline-flex
                   h-11 px-7 rounded-full
                   border border-foreground/20
-                  bg-gradient-to-r from-violet-200 via-fuchsia-200 to-sky-200
+                  bg-linear-to-r from-violet-200 via-fuchsia-200 to-sky-200
                   text-foreground
                   shadow-sm
                   transition-all duration-300
@@ -178,7 +178,7 @@ export function Header({ settings }: HeaderProps) {
       {/* Mobile/Tablet Menu: Right Drawer */}
       <div
         className={cn(
-          "fixed inset-0 lg:hidden z-[60]",
+          "fixed inset-0 lg:hidden z-60",
           isMenuOpen ? "pointer-events-auto" : "pointer-events-none"
         )}
       >
@@ -236,7 +236,7 @@ export function Header({ settings }: HeaderProps) {
                 mt-6
                 h-14 w-full rounded-full
                 border border-foreground/20
-                bg-gradient-to-r from-violet-200 via-fuchsia-200 to-sky-200
+                bg-linear-to-r from-violet-200 via-fuchsia-200 to-sky-200
                 text-foreground
                 shadow-sm
                 text-sm uppercase tracking-wider

@@ -1,3 +1,4 @@
+
 {
   "header": {
     "cta": "Contattami",
@@ -13,7 +14,11 @@
     "headline": "CREO MVP, WEB APP E SITI CHE FANNO CRESCERE",
     "subheadline": "Obiettivi chiari, scope controllato, consegna ordinata.",
     "primaryCta": "Richiedi preventivo",
-    "secondaryCta": "Vedi casi"
+    "secondaryCta": "Vedi casi",
+    "manifestoLine1": "MVP",
+"manifestoLine2": "WEB APP",
+"manifestoLine3": "SITI CHE CRESCONO"
+
   },
   "services": {
     "heading": "Servizi"
