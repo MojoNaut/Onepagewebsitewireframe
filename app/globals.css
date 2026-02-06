@@ -37,6 +37,7 @@
     --color-errorForeground: #991B1B;
     --color-warning: #FCD34D;
     --color-warningForeground: #92400E;
+    --tw-shadow-color: rgba(26, 26, 26, 0.1); /* Custom shadow color for consistency */
     
     /* ========================================
        TYPOGRAPHY
@@ -151,9 +152,7 @@
 
 /* Custom Cursor - Hide default on desktop (HJM Studio style) */
 @media (min-width: 1024px) {
-  * {
-    cursor: none !important;
-  }
+
 }
 
 /* Animations */

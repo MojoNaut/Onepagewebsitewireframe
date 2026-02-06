@@ -1,19 +1,48 @@
 // lib/queries.ts
 import groq from "groq";
 
+
 export const siteSettingsQuery = groq`
   *[_type == "siteSettings"][0] {
+    // GENERAL
     "brandName": brandName[$locale],
+ "brand": {
+  "logo": { "url": brand.logo.asset->url },
+  "icon": { "url": brand.icon.asset->url },
+  "logoAlt": brand.logoAlt[$locale]
+},
+
     contactEmail,
     linkedinUrl,
+
+    // HEADER
+    "header": {
+      "menu": {
+        "servicesLabel": header.menu.servicesLabel[$locale],
+        "methodLabel": header.menu.methodLabel[$locale],
+        "caseLabel": header.menu.caseLabel[$locale],
+        "faqLabel": header.menu.faqLabel[$locale]
+      },
+      "ctaLabel": header.ctaLabel[$locale],
+      "mobileMenuTitle": header.mobileMenuTitle[$locale]
+    },
+
+    // HERO
     "hero": {
       "manifestoLines": hero.manifestoLines[$locale],
       "headline": hero.headline[$locale],
       "primaryCtaLabel": hero.primaryCtaLabel[$locale],
       "secondaryCtaLabel": hero.secondaryCtaLabel[$locale]
+    },
+
+    // FOOTER
+    "footer": {
+      "headline": footer.headline[$locale],
+      "line": footer.line[$locale]
     }
   }
 `;
+
 
 export const servicesQuery = groq`
   *[_type == "service"] | order(order asc) {

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="64" height="64"
+     viewBox="0 0 5 5"
+     role="img" aria-label="MJ micro logo"
+     shape-rendering="crispEdges">
+  <path fill="currentColor"
+        d="M1 0h1v1H1ZM3 0h1v1H3ZM1 1h3v1H1ZM0 2h5v1H0ZM0 3h1v1H0ZM2 3h1v1H2ZM4 3h1v1H4ZM1 4h1v1H1ZM3 4h1v1H3Z"/>
+</svg>

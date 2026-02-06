@@ -39,12 +39,7 @@ export default async function HomePage({ params }: Props) {
         />
       </main>
 
-      <Footer
-        brandName={siteSettings.brandName}
-        footerLine={siteSettings.footerLine}
-        contactEmail={siteSettings.contactEmail}
-        linkedinUrl={siteSettings.linkedinUrl}
-      />
+  <Footer settings={siteSettings} />
     </div>
   );
 }

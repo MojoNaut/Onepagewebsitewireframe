@@ -1,55 +1,95 @@
 "use client";
 
+import Image from "next/image";
+import type { SiteSettings } from "@/types/content";
+
 type FooterProps = {
-  brandName?: string;
-  footerLine?: string;
-
-  // opzionali (se vuoi tenerli)
-  contactEmail?: string;
-  linkedinUrl?: string;
-
-  // opzionali per stile reference (coords/location)
+  settings?: SiteSettings;
   coordinates?: string;
   locationLine?: string;
 };
 
 export function Footer({
-  brandName = "LIVOTI STU.",
-  footerLine = "Guidato da Lorenzo Livoti. Network di specialisti quando serve.",
-  contactEmail = "lorenzolivoti0690@gmail.com",
-  linkedinUrl = "https://linkedin.com/in/lorenzo-livoti",
+  settings,
   coordinates = `N 45° 33' 00"  E 12° 00' 00"`,
   locationLine = "Located in Veneto, Italy",
 }: FooterProps) {
   const currentYear = new Date().getFullYear();
 
- const safeBrand = brandName?.endsWith(".") ? brandName : `${brandName ?? "STUDIO"}.`;
+  const brandName = settings?.brandName ?? "STUDIO";
+  const safeBrand = brandName.endsWith(".") ? brandName : `${brandName}.`;
+
+  const logoUrl = settings?.brand?.logo?.url;
+  const logoAlt = settings?.brand?.logoAlt || brandName;
+
+  // Un solo testo (come hai deciso tu)
+  const footerLine = settings?.footer?.line ?? "";
+
+  const contactEmail = settings?.contactEmail;
+  const linkedinUrl = settings?.linkedinUrl;
+
+  // micro-logo accanto all'anno: se non lo vuoi, metti a null
+  const microLogoUrl = settings?.brand?.icon?.url || null;
 
   return (
     <footer className="border-t border-foreground/15">
       <div className="mx-auto max-w-350 px-6 md:px-12 lg:px-24 py-16 md:py-20">
-        {/* BIG WORdMARK ONLY */}
-        <h2
-          className="
-            uppercase font-bold
-            leading-[0.85]
-            tracking-[-0.06em]
-            text-[clamp(3.5rem,10vw,9rem)]
-          "
-        >
-          {safeBrand}
-        </h2>
-
-        {/* Bottom info row (no extra borders, only spacing) */}
-        <div className="mt-12 flex flex-col md:flex-row md:items-end md:justify-between gap-10">
+        <div className="grid gap-12 lg:grid-cols-[1fr_auto] lg:items-end">
           {/* LEFT */}
-          <div className="max-w-xl">
-            <p className="text-sm md:text-base text-foreground/80">{footerLine}</p>
+          <div>
+            {/* LOGO GRANDE A SINISTRA */}
+            {logoUrl ? (
+              <div className="flex items-start">
+                <Image
+                  src={logoUrl}
+                  alt={logoAlt}
+                  width={1200}
+                  height={320}
+                  priority
+                  sizes="(min-width: 1024px) 720px, 90vw"
+                  className="
+                    block
+                    h-24 md:h-32 lg:h-40
+                    w-auto
+                    object-contain object-left
+                  "
+                />
+              </div>
+            ) : (
+              <h2
+                className="
+                  uppercase font-bold
+                  leading-[0.85]
+                  tracking-[-0.06em]
+                  text-[clamp(3.5rem,10vw,9rem)]
+                "
+              >
+                {safeBrand}
+              </h2>
+            )}
 
-            <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-foreground/70">
-              <span>© {currentYear} {safeBrand.replace(/\.$/, "")}</span>
+            {/* TESTO SOTTO (uno solo) */}
+            {footerLine && (
+              <p className="mt-6 text-sm md:text-base text-foreground/80 max-w-xl">
+                {footerLine}
+              </p>
+            )}
 
-              {/* Contatti minimal (se vuoi: restano piccoli e non invadenti) */}
+            {/* COPYRIGHT + LINK */}
+            <div className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-foreground/70">
+              <span className="inline-flex items-center gap-2">
+                © {currentYear}
+                {microLogoUrl ? (
+                  <Image
+                    src={microLogoUrl}
+                    alt=""
+                    width={18}
+                    height={18}
+                    className="h-[18px] w-[18px]"
+                  />
+                ) : null}
+              </span>
+
               {contactEmail && (
                 <>
                   <span className="opacity-40">|</span>
@@ -79,7 +119,7 @@ export function Footer({
           </div>
 
           {/* RIGHT */}
-          <div className="text-left md:text-right">
+          <div className="text-left lg:text-right">
             <div className="text-sm uppercase tracking-wider text-foreground/80">
               {coordinates}
             </div>

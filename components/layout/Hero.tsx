@@ -4,7 +4,6 @@
 import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import { Button } from "@/components/ui/Button";
 import type { SiteSettings } from "@/types/content";
-import { useTranslations } from "next-intl";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { IsometricRubikScrollCube } from "@/components/icons/IsometricRubikScrollCube";
@@ -16,45 +15,37 @@ type HeroProps = {
 };
 
 export function Hero({ settings }: HeroProps) {
-  const t = useTranslations("hero");
-
   const sectionRef = useRef<HTMLElement>(null);
   const dynamicRefs = useRef<Array<HTMLSpanElement | null>>([]);
   const cubeProgressRef = useRef(0);
   const [cubeProgress, setCubeProgress] = useState(0);
 
-  const staticPrefix = settings?.brandName ?? "CREIAMO";
+  // 🔍 DEBUG: Vediamo cosa arriva da Sanity
+  console.log("=== HERO DEBUG ===");
+  console.log("1. settings (tutto):", settings);
+  console.log("2. settings.brandName:", settings?.brandName);
+  console.log("3. settings.hero:", settings?.hero);
+  console.log("4. settings.hero.manifestoLines:", settings?.hero?.manifestoLines);
+  console.log("5. settings.hero.headline:", settings?.hero?.headline);
+  console.log("6. settings.hero.primaryCtaLabel:", settings?.hero?.primaryCtaLabel);
+  console.log("7. settings.hero.secondaryCtaLabel:", settings?.hero?.secondaryCtaLabel);
+  console.log("==================");
 
-  // ✅ fallback sicuro: se manca la key, next-intl può throware (MISSING_MESSAGE)
-  const getSafe = (key: string, fallback: string) => {
-    try {
-      const value = t(key);
-      if (!value || value.trim().length === 0) return fallback;
-      return value;
-    } catch {
-      return fallback;
-    }
-  };
+  // ✅ Tutto da Sanity, fallback minimi solo per evitare crash
+  const brandName = settings?.brandName ?? "";
+  const manifesto = settings?.hero?.manifestoLines ?? [];
+  const headline = settings?.hero?.headline ?? "";
+  const primaryCta = settings?.hero?.primaryCtaLabel ?? "";
+  const secondaryCta = settings?.hero?.secondaryCtaLabel ?? "";
 
-  // ✅ Sanity first (manifestoLines), i18n fallback
-  const manifesto =
-    settings?.hero?.manifestoLines?.length
-      ? settings.hero.manifestoLines.slice(0, 3)
-      : [
-          getSafe("manifestoLine1", "MVP"),
-          getSafe("manifestoLine2", "WEB APP"),
-          getSafe("manifestoLine3", "SITI CHE CRESCONO"),
-        ];
-
-  // ✅ Sanity first per headline/cta (qui prima non li usavi nel render)
-  const headline =
-    settings?.headline ?? getSafe("headline", "Essential digital projects.");
-  const primaryCta =
-    settings?.hero?.primaryCtaLabel ??
-    getSafe("primaryCta", "Let’s talk about your project");
-  const secondaryCta =
-    settings?.hero?.secondaryCtaLabel ??
-    getSafe("secondaryCta", "View projects");
+  // 🔍 DEBUG: Valori finali usati nel render
+  console.log("=== VALORI FINALI ===");
+  console.log("brandName:", brandName);
+  console.log("manifesto:", manifesto);
+  console.log("headline:", headline);
+  console.log("primaryCta:", primaryCta);
+  console.log("secondaryCta:", secondaryCta);
+  console.log("=====================");
 
   const manifestoDep = useMemo(() => manifesto.join("\u0000"), [manifesto]);
 
@@ -183,7 +174,7 @@ export function Hero({ settings }: HeroProps) {
           "
         >
           <span className="block text-[0.75em] opacity-70">
-            {staticPrefix}
+            {brandName}
             <span className="opacity-60">:</span>
           </span>
 
