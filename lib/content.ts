@@ -14,11 +14,33 @@ const fallbackSiteSettings = {
   brandName: "",
   contactEmail: "",
   linkedinUrl: "",
+  brand: {
+    logo: { url: "" },
+    icon: { url: "" },
+    logoAlt: "",
+  },
+  header: {
+    menu: {
+      servicesLabel: "",
+      methodLabel: "",
+      caseLabel: "",
+      faqLabel: "",
+    },
+    ctaLabel: "",
+    mobileMenuTitle: "",
+  },
   hero: {
     manifestoLines: [],
     headline: "",
     primaryCtaLabel: "",
     secondaryCtaLabel: "",
+  },
+  servicesSection: {
+    heading: "",
+  },
+  footer: {
+    headline: "",
+    line: "",
   },
 };
 
@@ -42,7 +64,7 @@ export async function loadSiteContent(
   try {
     const [siteSettings, services, workItems, faqs] = await Promise.all([
       client.fetch(siteSettingsQuery, { locale }),
-      client.fetch(servicesQuery),
+      client.fetch(servicesQuery, { locale }),  // ✅ Passa locale
       client.fetch(workItemsQuery),
       client.fetch(faqsQuery),
     ]);

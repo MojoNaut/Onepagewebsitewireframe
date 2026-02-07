@@ -1,5 +1,6 @@
 // sanity/schemaTypes/index.ts
 import { siteSettingsType } from "./siteSettingsType";
+import { serviceType } from "./serviceType";
 import { 
   localizedString, 
   localizedText, 
@@ -13,6 +14,7 @@ export const schemaTypes = [
   localizedStringArray,
   // Documents
   siteSettingsType,
+    serviceType,
 ];
 
 export const schema = {

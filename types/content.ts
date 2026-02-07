@@ -1,23 +1,14 @@
 // types/content.ts
 
-// ==================================================
-// SITE SETTINGS
-// ==================================================
 export type SiteSettings = {
-  // ---------- GENERAL ----------
   brandName: string;
   contactEmail: string;
   linkedinUrl: string;
-
-  // Logo/Brand (da Sanity -> query)
-  // Nota: li teniamo optional per evitare rotture se non compilati in CMS
-brand?: {
-  logo?: { url: string } | null;
-  icon?: { url: string } | null;
-  logoAlt?: string | null;
-};
-
-  // ---------- HEADER ----------
+  brand: {
+    logo: { url: string };
+    icon: { url: string };
+    logoAlt: string;
+  };
   header: {
     menu: {
       servicesLabel: string;
@@ -28,51 +19,49 @@ brand?: {
     ctaLabel: string;
     mobileMenuTitle: string;
   };
-
-  // ---------- HERO ----------
   hero: {
     manifestoLines: string[];
     headline: string;
     primaryCtaLabel: string;
     secondaryCtaLabel: string;
   };
-
-  // ---------- FOOTER ----------
-  // (testi localizzati da Sanity)
-  footer?: {
+  servicesSection: {
+    heading: string;
+  };
+  footer: {
     headline: string;
     line: string;
   };
 };
 
-// ==================================================
-// SUPPORTING TYPES
-// ==================================================
-export type ServiceItem = {
+// ✅ Service type aggiornato
+export type Service = {
   _id: string;
   title: string;
-  description: string;
+  tagline: string;
+  deliverables: string[];
 };
 
 export type WorkItem = {
   _id: string;
   title: string;
-  description: string;
-  imageUrl: string;
+  description?: string;
+  imageUrl?: string;
+  type?: string;
+  summary?: string;
+  liveUrl?: string;
+  featured?: boolean;
 };
 
-export type FaqItem = {
+export type FAQ = {
   _id: string;
   question: string;
   answer: string;
 };
 
-// ==================================================
-// SITE CONTENT (PAGE AGGREGATE)
-// ==================================================
 export type SiteContent = {
   siteSettings: SiteSettings;
-  services: ServiceItem[];
+  services: Service[];
   workItems: WorkItem[];
-  faqs: FaqItem[];
+  faqs: FAQ[];
 };

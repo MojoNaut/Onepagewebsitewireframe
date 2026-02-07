@@ -17,8 +17,6 @@ type Props = {
 
 export default async function HomePage({ params }: Props) {
   const { locale } = await params;
-  
-  // Passa locale a loadSiteContent
   const content = await loadSiteContent(locale);
   const { siteSettings, services, workItems, faqs } = content;
 
@@ -28,18 +26,15 @@ export default async function HomePage({ params }: Props) {
 
       <main>
         <Hero settings={siteSettings} />
-        <Services services={services} />
+        <Services services={services} copy={siteSettings.servicesSection} />  {/* ✅ Aggiunto copy */}
         <FitFilter copy={siteSettings.fitFilter} />
         <Process copy={siteSettings.process} />
         <Work workItems={workItems} copy={siteSettings.workSection} />
         <FAQ faqs={faqs} copy={siteSettings.faqSection} />
-        <Contact
-          contactEmail={siteSettings.contactEmail}
-          copy={siteSettings.contactSection}
-        />
+        <Contact contactEmail={siteSettings.contactEmail} copy={siteSettings.contactSection} />
       </main>
 
-  <Footer settings={siteSettings} />
+      <Footer settings={siteSettings} />
     </div>
   );
 }

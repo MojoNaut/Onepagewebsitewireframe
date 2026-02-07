@@ -9,6 +9,7 @@ export const siteSettingsType = defineType({
     { name: "general", title: "General", default: true },
     { name: "header", title: "Header" },
     { name: "hero", title: "Hero Section" },
+    { name: "services", title: "Services Section" },
     { name: "footer", title: "Footer" },
   ],
 
@@ -130,7 +131,23 @@ export const siteSettingsType = defineType({
         }),
       ],
     }),
-
+    // ==================================================
+    //  SERVICES
+    // ==================================================
+defineField({
+  name: "servicesSection",
+  title: "Services Section",
+  type: "object",
+  group: "services",
+  fields: [
+    defineField({
+      name: "heading",
+      title: "Section Heading",
+      type: "localizedString",
+      description: "Es: Servizi / Services",
+    }),
+  ],
+}),
     // ==================================================
     // FOOTER
     // ==================================================

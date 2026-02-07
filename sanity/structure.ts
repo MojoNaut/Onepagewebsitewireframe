@@ -5,6 +5,7 @@ export const structure = (S: StructureBuilder) =>
   S.list()
     .title("Content")
     .items([
+      // Site Settings (singleton)
       S.listItem()
         .title("Site Settings")
         .id("siteSettings")
@@ -13,4 +14,10 @@ export const structure = (S: StructureBuilder) =>
             .schemaType("siteSettings")
             .documentId("siteSettings")
         ),
+
+      S.divider(),
+
+      // Services (list)
+      S.documentTypeListItem("service")
+        .title("Services"),
     ]);

@@ -1,17 +1,15 @@
 // lib/queries.ts
 import groq from "groq";
 
-
 export const siteSettingsQuery = groq`
   *[_type == "siteSettings"][0] {
     // GENERAL
     "brandName": brandName[$locale],
- "brand": {
-  "logo": { "url": brand.logo.asset->url },
-  "icon": { "url": brand.icon.asset->url },
-  "logoAlt": brand.logoAlt[$locale]
-},
-
+    "brand": {
+      "logo": { "url": brand.logo.asset->url },
+      "icon": { "url": brand.icon.asset->url },
+      "logoAlt": brand.logoAlt[$locale]
+    },
     contactEmail,
     linkedinUrl,
 
@@ -35,6 +33,11 @@ export const siteSettingsQuery = groq`
       "secondaryCtaLabel": hero.secondaryCtaLabel[$locale]
     },
 
+    // SERVICES SECTION
+    "servicesSection": {
+      "heading": servicesSection.heading[$locale]
+    },
+
     // FOOTER
     "footer": {
       "headline": footer.headline[$locale],
@@ -43,12 +46,13 @@ export const siteSettingsQuery = groq`
   }
 `;
 
-
+// ✅ AGGIORNATA: Services con campi localizzati
 export const servicesQuery = groq`
   *[_type == "service"] | order(order asc) {
     _id,
-    title,
-    description
+    "title": title[$locale],
+    "tagline": tagline[$locale],
+    "deliverables": deliverables[$locale]
   }
 `;
 
