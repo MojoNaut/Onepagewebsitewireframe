@@ -1,3 +1,4 @@
+// sanity/schemaTypes/siteSettingsType.ts
 import { defineField, defineType } from "sanity";
 
 export const siteSettingsType = defineType({
@@ -10,6 +11,7 @@ export const siteSettingsType = defineType({
     { name: "header", title: "Header" },
     { name: "hero", title: "Hero Section" },
     { name: "services", title: "Services Section" },
+    { name: "fitFilter", title: "Fit Filter Section" },  // ✅ NUOVO
     { name: "footer", title: "Footer" },
   ],
 
@@ -43,13 +45,12 @@ export const siteSettingsType = defineType({
           type: "localizedString",
         }),
         defineField({
-  name: "icon",
-  title: "Micro Logo / Favicon",
-  type: "image",
-  options: { hotspot: true },
-  description: "Icona piccola usata nei dettagli (es. riga copyright)",
-}),
-
+          name: "icon",
+          title: "Micro Logo / Favicon",
+          type: "image",
+          options: { hotspot: true },
+          description: "Icona piccola usata nei dettagli (es. riga copyright)",
+        }),
       ],
     }),
 
@@ -131,23 +132,63 @@ export const siteSettingsType = defineType({
         }),
       ],
     }),
+
     // ==================================================
-    //  SERVICES
+    // SERVICES
     // ==================================================
-defineField({
-  name: "servicesSection",
-  title: "Services Section",
-  type: "object",
-  group: "services",
-  fields: [
     defineField({
-      name: "heading",
-      title: "Section Heading",
-      type: "localizedString",
-      description: "Es: Servizi / Services",
+      name: "servicesSection",
+      title: "Services Section",
+      type: "object",
+      group: "services",
+      fields: [
+        defineField({
+          name: "heading",
+          title: "Section Heading",
+          type: "localizedString",
+          description: "Es: Servizi / Services",
+        }),
+      ],
     }),
-  ],
-}),
+
+    // ==================================================
+    // FIT FILTER ✅ NUOVO
+    // ==================================================
+    defineField({
+      name: "fitFilter",
+      title: "Fit Filter Section",
+      type: "object",
+      group: "fitFilter",
+      fields: [
+        defineField({
+          name: "perfectTitle",
+          title: "Perfect For Title",
+          type: "localizedString",
+          description: "Es: Perfetto per te se: / Perfect for you if:",
+        }),
+        defineField({
+          name: "perfectItems",
+          title: "Perfect For Items",
+          type: "localizedStringArray",
+          description: "Lista di punti (3-5 elementi) - cosa rende il servizio perfetto per il cliente",
+          validation: (Rule) => Rule.max(5).warning("Massimo 5 elementi per leggibilità"),
+        }),
+        defineField({
+          name: "notForTitle",
+          title: "Not For Title",
+          type: "localizedString",
+          description: "Es: Non per te se: / Not for you if:",
+        }),
+        defineField({
+          name: "notForItems",
+          title: "Not For Items",
+          type: "localizedStringArray",
+          description: "Lista di punti (3-5 elementi) - cosa NON è adatto per questo servizio",
+          validation: (Rule) => Rule.max(5).warning("Massimo 5 elementi per leggibilità"),
+        }),
+      ],
+    }),
+
     // ==================================================
     // FOOTER
     // ==================================================
@@ -163,7 +204,6 @@ defineField({
           type: "localizedString",
           description: "Testo breve sotto il logo",
         }),
-        
         defineField({
           name: "line",
           title: "Footer Line",

@@ -38,6 +38,14 @@ export const siteSettingsQuery = groq`
       "heading": servicesSection.heading[$locale]
     },
 
+    // ✅ FIT FILTER SECTION
+    "fitFilter": {
+      "perfectTitle": fitFilter.perfectTitle[$locale],
+      "perfectItems": fitFilter.perfectItems[$locale],
+      "notForTitle": fitFilter.notForTitle[$locale],
+      "notForItems": fitFilter.notForItems[$locale]
+    },
+
     // FOOTER
     "footer": {
       "headline": footer.headline[$locale],

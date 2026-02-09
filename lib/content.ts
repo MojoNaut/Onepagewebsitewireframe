@@ -38,6 +38,13 @@ const fallbackSiteSettings = {
   servicesSection: {
     heading: "",
   },
+  // ✅ NUOVO: Fallback fitFilter
+  fitFilter: {
+    perfectTitle: "Perfect for you if:",
+    perfectItems: [],
+    notForTitle: "Not for you if:",
+    notForItems: [],
+  },
   footer: {
     headline: "",
     line: "",
@@ -64,7 +71,7 @@ export async function loadSiteContent(
   try {
     const [siteSettings, services, workItems, faqs] = await Promise.all([
       client.fetch(siteSettingsQuery, { locale }),
-      client.fetch(servicesQuery, { locale }),  // ✅ Passa locale
+      client.fetch(servicesQuery, { locale }),
       client.fetch(workItemsQuery),
       client.fetch(faqsQuery),
     ]);

@@ -28,6 +28,13 @@ export type SiteSettings = {
   servicesSection: {
     heading: string;
   };
+  // ✅ NUOVO: Fit Filter
+  fitFilter: {
+    perfectTitle: string;
+    perfectItems: string[];
+    notForTitle: string;
+    notForItems: string[];
+  };
   footer: {
     headline: string;
     line: string;
