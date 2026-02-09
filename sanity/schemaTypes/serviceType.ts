@@ -22,6 +22,13 @@ export const serviceType = defineType({
     }),
 
     defineField({
+      name: "tags",
+      title: "Tags",
+      type: "localizedStringArray",
+      description: "Badge/etichette per il servizio (es: Validazione, Startup)",
+    }),
+
+    defineField({
       name: "deliverables",
       title: "Deliverables",
       type: "localizedStringArray",
@@ -35,6 +42,15 @@ export const serviceType = defineType({
       description: "Ordine di visualizzazione (1, 2, 3...)",
       initialValue: 0,
     }),
+    defineField({
+  name: "icon",
+  title: "Icon (SVG)",
+  type: "image",
+  description: "Icona/illustrazione per il servizio (solo desktop)",
+  options: {
+    accept: "image/svg+xml,image/png,image/webp",
+  },
+}),
   ],
 
   preview: {

@@ -34,12 +34,13 @@ export type SiteSettings = {
   };
 };
 
-// ✅ Service type aggiornato
 export type Service = {
   _id: string;
   title: string;
   tagline: string;
+  tags: string[];
   deliverables: string[];
+  iconUrl?: string;
 };
 
 export type WorkItem = {

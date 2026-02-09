@@ -46,13 +46,14 @@ export const siteSettingsQuery = groq`
   }
 `;
 
-// ✅ AGGIORNATA: Services con campi localizzati
 export const servicesQuery = groq`
   *[_type == "service"] | order(order asc) {
     _id,
     "title": title[$locale],
     "tagline": tagline[$locale],
-    "deliverables": deliverables[$locale]
+    "tags": tags[$locale],
+    "deliverables": deliverables[$locale],
+    "iconUrl": icon.asset->url
   }
 `;
 

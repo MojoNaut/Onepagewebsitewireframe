@@ -175,7 +175,7 @@ export function Hero({ settings }: HeroProps) {
         >
           <span className="block text-[0.75em] opacity-70">
             {brandName}
-            <span className="opacity-60">:</span>
+           
           </span>
 
           <span className="relative block mt-3 min-h-[2.4em] sm:min-h-[1.2em]">
@@ -202,7 +202,10 @@ export function Hero({ settings }: HeroProps) {
         {/* HEADLINE + CTA */}
         <div className="w-full flex flex-col items-center gap-6">
           <p className="text-muted-foreground text-base sm:text-lg max-w-md">
-            {headline}
+            {headline} <br />
+  <span className="text-foreground/80 italic">
+    Soluzioni digitali pensate per durare.
+  </span>
           </p>
 
           <div className="flex flex-col sm:flex-row sm:items-center justify-center gap-5 sm:gap-6">

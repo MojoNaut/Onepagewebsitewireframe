@@ -1,136 +1,250 @@
 // components/sections/Services.tsx
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import type { Service, SiteSettings } from "@/types/content";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useId, useState } from "react";
+import Image from "next/image";
+import type { Service } from "@/types/content";
+import { cn } from "@/lib/utils";
 
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
+type ServicesProps = {
+  services?: Service[];
+};
 
 interface AccordionItemProps {
   title: string;
   tagline?: string;
+  tags?: string[];
   deliverables?: string[];
+  iconUrl?: string;
   isOpen: boolean;
   onToggle: () => void;
-  index: number;
+  panelId: string;
+}
+
+function FullBleedDivider({
+  className,
+  position = "top",
+}: {
+  className?: string;
+  position?: "top" | "bottom";
+}) {
+  return (
+    <div
+      aria-hidden
+      className={cn(
+        "pointer-events-none absolute left-1/2 -translate-x-1/2 w-[100vw] border-border",
+        position === "top" ? "top-0 border-t" : "bottom-0 border-b",
+        className
+      )}
+    />
+  );
+}
+
+function WatermarkLayer({
+  iconUrl,
+  isOpen,
+  ease,
+}: {
+  iconUrl?: string;
+  isOpen: boolean;
+  ease: string;
+}) {
+  if (!iconUrl) return null;
+
+  return (
+    <div
+      aria-hidden
+      className={cn(
+        "pointer-events-none absolute inset-0 z-0",
+        "flex items-center justify-center",
+        "transition-[opacity,transform] duration-700 motion-reduce:transition-none",
+        ease,
+        isOpen ? "opacity-100 scale-100 delay-150" : "opacity-0 scale-95 delay-0"
+      )}
+    >
+      <div className="relative w-full h-full max-w-[600px] max-h-[400px]">
+        <Image
+          src={iconUrl}
+          alt=""
+          fill
+          sizes="(min-width: 1024px) 600px, 90vw"
+          className={cn(
+            "object-contain select-none",
+            "opacity-[0.06]"
+          )}
+        />
+      </div>
+    </div>
+  );
 }
 
 function AccordionItem({
   title,
   tagline,
+  tags,
   deliverables,
+  iconUrl,
   isOpen,
   onToggle,
-  index,
+  panelId,
 }: AccordionItemProps) {
-  const itemRef = useRef<HTMLDivElement>(null);
+  const buttonId = `${panelId}-btn`;
+  const ease = "ease-[cubic-bezier(0.22,1,0.36,1)]";
 
-  useEffect(() => {
-    if (!itemRef.current) return;
-
-    gsap.from(itemRef.current, {
-      scrollTrigger: {
-        trigger: itemRef.current,
-        start: "top 85%",
-        end: "top 60%",
-        toggleActions: "play none none reverse",
-      },
-      opacity: 0,
-      y: 40,
-      duration: 0.6,
-      delay: index * 0.1,
-      ease: "power2.out",
-    });
-  }, [index]);
+  // Animazioni contenuto (fade-down)
+  const revealBase = cn(
+    "transform-gpu will-change-transform will-change-opacity",
+    "transition-all duration-500 motion-reduce:transition-none",
+    ease
+  );
+  const revealOpen = "opacity-100 translate-y-0";
+  const revealClosed = "opacity-0 -translate-y-3";
 
   return (
-    <div ref={itemRef} className="border-t border-border">
-      <button
-        onClick={onToggle}
-        className="w-full py-10 md:py-14 flex items-center justify-between gap-8 text-left hover:opacity-70 transition-opacity duration-300 group"
-      >
-        <h3 className="text-2xl md:text-4xl lg:text-5xl font-semibold uppercase tracking-tight">
-          {title}
-        </h3>
-        <span
-          className="text-4xl md:text-5xl font-light transition-transform duration-500 shrink-0"
-          style={{ transform: isOpen ? "rotate(45deg)" : "rotate(0deg)" }}
+    <div className="relative isolate">
+      <FullBleedDivider position="top" />
+
+   {/* Wrapper unico: watermark copre header + content */}
+<div className="relative overflow-hidden">
+  <WatermarkLayer iconUrl={iconUrl} isOpen={isOpen} ease={ease} />
+        {/* HEADER (centrato sempre) */}
+        <button
+          id={buttonId}
+          type="button"
+          onClick={onToggle}
+          aria-expanded={isOpen}
+          aria-controls={panelId}
+          className={cn(
+            "relative z-10 w-full py-10 md:py-14",
+            "hover:opacity-70 transition-opacity duration-300",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground/30 focus-visible:ring-offset-4 focus-visible:ring-offset-background"
+          )}
         >
-          +
-        </span>
-      </button>
+          {/* Centro: Titolo + Tags */}
+          <div className="relative z-10 flex flex-col items-center justify-center gap-4 px-10 md:px-16">
+            <h3 className="text-2xl md:text-4xl lg:text-5xl font-semibold uppercase tracking-tight text-center">
+              {title}
+            </h3>
 
-      {/* Content */}
-      <div
-        className="overflow-hidden transition-all duration-500 ease-in-out"
-        style={{
-          maxHeight: isOpen ? "1000px" : "0px",
-          opacity: isOpen ? 1 : 0,
-        }}
+            {/* Tags: solo quando open (fade-in) */}
+            {/* Tags: solo quando open (fade-in) - NON renderizzare se chiuso */}
+{tags && tags.length > 0 && isOpen && (
+  <div
+    className={cn(
+      "flex flex-wrap justify-center gap-2",
+      "transform-gpu will-change-transform will-change-opacity",
+      "transition-[opacity,transform] duration-500 motion-reduce:transition-none",
+      ease,
+      "opacity-100 translate-y-0 delay-150"
+    )}
+  >
+    {tags.map((tag, i) => (
+      <span
+        key={i}
+        className="inline-block px-4 py-1.5 text-xs uppercase tracking-wider border border-foreground/30 rounded-full whitespace-nowrap"
       >
-        <div className="pb-14 md:pb-16 pr-16">
-          {tagline && (
-            <p className="text-lg md:text-xl text-muted-foreground mb-6 max-w-3xl leading-relaxed">
-              {tagline}
-            </p>
-          )}
+        {tag}
+      </span>
+    ))}
+  </div>
+)}
+          </div>
 
-          {deliverables && deliverables.length > 0 && (
-            <ul className="space-y-3 text-base md:text-lg text-muted-foreground">
-              {deliverables.map((item, i) => (
-                <li key={i} className="flex items-start gap-3">
-                  <span className="text-foreground mt-1 text-xl">•</span>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
+          {/* + / × fisso a destra (mai shift) */}
+          <span
+            className={cn(
+              "absolute right-0 top-1/2 -translate-y-1/2 z-20",
+              "w-10 h-10 md:w-12 md:h-12 flex items-center justify-center",
+              "text-3xl md:text-4xl font-light leading-none",
+              "transform-gpu transition-transform duration-500 motion-reduce:transition-none",
+              ease,
+              isOpen && "rotate-45"
+            )}
+          >
+            +
+          </span>
+        </button>
+
+        {/* CONTENT (accordion) */}
+        <div
+          id={panelId}
+          role="region"
+          aria-labelledby={buttonId}
+          className={cn(
+            "relative z-10",
+            "grid transition-[grid-template-rows,opacity] duration-700 motion-reduce:transition-none",
+            ease,
+            isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
           )}
+        >
+          <div className="overflow-hidden">
+            <div className="pb-14 md:pb-16">
+              <div className="max-w-2xl mx-auto text-center">
+                {/* Tagline */}
+                {tagline && (
+                  <p
+                    className={cn(
+                      "text-lg md:text-xl text-muted-foreground mb-6 leading-relaxed",
+                      revealBase,
+                      isOpen ? `${revealOpen} delay-200` : `${revealClosed} delay-0`
+                    )}
+                  >
+                    {tagline}
+                  </p>
+                )}
+
+                {/* Deliverables */}
+                {deliverables && deliverables.length > 0 && (
+                  <ul
+                    className={cn(
+                      "space-y-3 text-base md:text-lg text-muted-foreground",
+                      revealBase,
+                      isOpen ? `${revealOpen} delay-300` : `${revealClosed} delay-0`
+                    )}
+                  >
+                    {deliverables.map((item, i) => (
+                      <li key={i} className="flex items-start justify-center gap-3">
+                        <span className="text-foreground mt-1">•</span>
+                        <span className="text-left">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   );
 }
 
-type ServicesProps = {
-  services?: Service[];
-  copy?: SiteSettings["servicesSection"];
-};
-
-export function Services({ services = [], copy }: ServicesProps) {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+export function Services({ services = [] }: ServicesProps) {
+  // state zero: tutti chiusi
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const baseId = useId();
 
   const handleToggle = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
-  // ✅ Heading da Sanity, fallback vuoto
-  const heading = copy?.heading ?? "";
-
   return (
-    <section id="servizi" className="scroll-mt-24 border-t border-border">
+    <section id="servizi" className="scroll-mt-24 relative">
       <div className="mx-auto max-w-350 px-6 md:px-12 lg:px-24 py-24 md:py-40">
-        {/* Label */}
-        {heading && (
-          <p className="text-xs uppercase tracking-[0.3em] font-medium mb-20 md:mb-24 opacity-40">
-            {heading}
-          </p>
-        )}
+        <div className="relative">
+          <FullBleedDivider position="bottom" />
 
-        {/* Accordion */}
-        <div className="border-b border-border">
           {services.map((service, index) => (
             <AccordionItem
               key={service._id}
               title={service.title}
               tagline={service.tagline}
+              tags={service.tags}
               deliverables={service.deliverables}
+              iconUrl={service.iconUrl}
               isOpen={openIndex === index}
               onToggle={() => handleToggle(index)}
-              index={index}
+              panelId={`${baseId}-service-${index}`}
             />
           ))}
         </div>
