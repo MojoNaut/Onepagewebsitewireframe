@@ -13,7 +13,7 @@
 import { createClient } from "@sanity/client";
 
 // ⚠️ IMPORTANTE: Usa variabile d'ambiente per il token
-const SANITY_TOKEN = process.env.SANITY_WRITE_TOKEN;
+const SANITY_TOKEN = process.env.SANITY_WRITE_TOKEN || "skhXqWDstYsiFvf9PDmlVpJ2GSvwRcP1JRQmVaejW6xNAYEd0CoyQW3wLJItTvRXr8hi7jTvN1ZnuPlq04EeZWJnCVHJqt59D3JATuVWaFTQCKeAH1Y5ZdJStQHc3x46rWn1BCYYqjZNStzT7OpOHJlyYSiFSsGpK25COW2FKfjR2gAdT2hi"
 
 if (!SANITY_TOKEN) {
   console.error("❌ ERRORE: SANITY_WRITE_TOKEN non trovato in .env.local");
@@ -28,6 +28,7 @@ const client = createClient({
   apiVersion: "2024-01-01",
   token: SANITY_TOKEN,
   useCdn: false,
+  
 });
 
 // Contenuto fitFilter da seedare

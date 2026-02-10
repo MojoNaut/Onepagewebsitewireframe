@@ -144,6 +144,7 @@ export function Hero({ settings }: HeroProps) {
               steppedRotation
               animateLid
               externalProgress={cubeProgress}
+              
             />
           </div>
         </div>

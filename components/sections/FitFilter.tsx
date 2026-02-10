@@ -9,46 +9,40 @@ type FitFilterProps = {
 };
 
 export function FitFilter({ copy }: FitFilterProps) {
-  // ✅ Dati da Sanity con fallback
   const perfectTitle = copy?.perfectTitle || "Perfetto per te se:";
-  const perfectItems = copy?.perfectItems || [
-    "Hai un'idea da validare velocemente",
-    "Vuoi un prodotto funzionante, non solo bello",
-    "Cerchi qualcuno che capisca business e tech",
-  ];
+  const perfectItems = copy?.perfectItems || [];
   const notForTitle = copy?.notForTitle || "Non per te se:";
-  const notForItems = copy?.notForItems || [
-    "Cerchi un'agenzia con team di 10+ persone",
-    "Hai bisogno di sviluppo mobile nativo (iOS/Android)",
-    "Vuoi micro-gestire ogni pixel",
-  ];
+  const notForItems = copy?.notForItems || [];
 
   return (
-    <section id="fit" className="scroll-mt-24 border-border">
+    <section id="fit" className="relative scroll-mt-24 border-t border-border overflow-hidden">
       <div className="mx-auto max-w-[1400px] px-6 md:px-24 py-20 md:py-32">
-        {/* DESKTOP: SVG sinistra | Testo destra */}
-        {/* MOBILE: Testo sopra | SVG sotto (order) */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        
+        {/* DESKTOP: Grid 2 colonne */}
+        <div className="hidden lg:grid lg:grid-cols-2 gap-20 items-start">
           
-          {/* SVG: visibile sempre, ma comportamento diverso desktop/mobile */}
-          <div className="order-2 lg:order-1">
-            <div className="lg:opacity-100 opacity-20 lg:sticky lg:top-32">
-              <VennDiagram instanceId="fitfilter-venn" />
-            </div>
+          {/* SVG Sinistra - Sticky */}
+          <div className="sticky top-32">
+            <VennDiagram 
+              instanceId="fitfilter-venn"
+              colorA="#3B82F6"
+              colorB="#EC4899"
+              fillOpacity={0.15}
+            />
           </div>
 
-          {/* Testo: Liste Perfect/NotFor */}
-          <div className="order-1 lg:order-2 space-y-12">
+          {/* Testo Destra */}
+          <div className="space-y-16">
             {/* Perfect For */}
             <div>
-              <h3 className="text-xl md:text-2xl font-semibold mb-6 text-accent">
+              <h3 className="text-2xl font-semibold mb-8 text-accent">
                 {perfectTitle}
               </h3>
-              <ul className="space-y-4">
+              <ul className="space-y-5">
                 {perfectItems.map((item, i) => (
-                  <li key={i} className="flex items-start gap-3">
-                    <span className="text-accent mt-1 text-lg">✓</span>
-                    <span className="text-base md:text-lg text-muted-foreground">
+                  <li key={i} className="flex items-start gap-4">
+                    <span className="text-accent mt-1 text-xl shrink-0">✓</span>
+                    <span className="text-lg text-muted-foreground leading-relaxed">
                       {item}
                     </span>
                   </li>
@@ -58,14 +52,14 @@ export function FitFilter({ copy }: FitFilterProps) {
 
             {/* Not For */}
             <div>
-              <h3 className="text-xl md:text-2xl font-semibold mb-6 text-foreground/60">
+              <h3 className="text-2xl font-semibold mb-8 text-foreground/60">
                 {notForTitle}
               </h3>
-              <ul className="space-y-4">
+              <ul className="space-y-5">
                 {notForItems.map((item, i) => (
-                  <li key={i} className="flex items-start gap-3">
-                    <span className="text-foreground/40 mt-1 text-lg">✕</span>
-                    <span className="text-base md:text-lg text-muted-foreground/70">
+                  <li key={i} className="flex items-start gap-4">
+                    <span className="text-foreground/40 mt-1 text-xl shrink-0">✕</span>
+                    <span className="text-lg text-muted-foreground/70 leading-relaxed">
                       {item}
                     </span>
                   </li>
@@ -74,6 +68,60 @@ export function FitFilter({ copy }: FitFilterProps) {
             </div>
           </div>
         </div>
+
+        {/* MOBILE/TABLET: SVG come background (stile Rubik Cube) */}
+        <div className="lg:hidden relative">
+          
+          {/* ✅ SVG Background - Opacity aumentata da 0.08 a 0.18 */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div className="w-full max-w-sm opacity-[0.22]">
+              <VennDiagram 
+                instanceId="fitfilter-venn-mobile"
+                colorA="#3B82F6"
+                colorB="#EC4899"
+                fillOpacity={0.22}
+              />
+            </div>
+          </div>
+
+          {/* Testo in primo piano */}
+          <div className="relative z-10 space-y-12">
+            {/* Perfect For */}
+            <div>
+              <h3 className="text-xl font-semibold mb-6 text-accent">
+                {perfectTitle}
+              </h3>
+              <ul className="space-y-4">
+                {perfectItems.map((item, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <span className="text-accent mt-1 text-lg shrink-0">✓</span>
+                    <span className="text-base text-muted-foreground leading-relaxed">
+                      {item}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Not For */}
+            <div>
+              <h3 className="text-xl font-semibold mb-6 text-foreground/60">
+                {notForTitle}
+              </h3>
+              <ul className="space-y-4">
+                {notForItems.map((item, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <span className="text-foreground/40 mt-1 text-lg shrink-0">✕</span>
+                    <span className="text-base text-muted-foreground/70 leading-relaxed">
+                      {item}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
   );

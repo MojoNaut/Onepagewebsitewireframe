@@ -8,20 +8,16 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 type VennDiagramProps = {
-  /** Colore cerchio A (più grande) */
   colorA?: string;
-  /** Colore cerchio B (più piccolo) */
   colorB?: string;
-  /** Opacity fissa dei fill */
   fillOpacity?: number;
-  /** ID univoco */
   instanceId?: string;
 };
 
 export function VennDiagram({
-  colorA = "#3B82F6", // blue-500
-  colorB = "#EC4899", // pink-500
-  fillOpacity = 0.15,  // Molto più trasparente
+  colorA = "#3B82F6",
+  colorB = "#EC4899",
+  fillOpacity = 0.18, // ✅ Aumentato da 0.15
   instanceId = "venn-default",
 }: VennDiagramProps) {
   const svgRef = useRef<SVGSVGElement>(null);
@@ -47,38 +43,29 @@ export function VennDiagram({
     const circleAFilled = circleAFilledRef.current;
     const circleBFilled = circleBFilledRef.current;
 
-    const INITIAL_OFFSET = 120; // Distanza iniziale maggiore
+    const INITIAL_OFFSET = 50; // ✅ Cerchi iniziano vicini
+    const FINAL_OFFSET = 22;   // ✅ 40% overlap
 
-    // Stato iniziale: cerchi separati verticalmente
     gsap.set([circleAOutline, circleAFilled], { y: -INITIAL_OFFSET });
     gsap.set([circleBOutline, circleBFilled], { y: INITIAL_OFFSET });
 
-    // Timeline scroll - SOLO movimento, opacity FISSA
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: svg,
         start: "top 80%",
-        end: "bottom 20%",
-        scrub: 1,
+        end: "bottom 30%",
+        scrub: 1.5,
         // markers: true,
       },
     });
 
     tl.to(
       [circleAOutline, circleAFilled],
-      {
-        y: 0,
-        duration: 1,
-        ease: "power2.inOut",
-      },
+      { y: -FINAL_OFFSET, duration: 1, ease: "power2.inOut" },
       0
     ).to(
       [circleBOutline, circleBFilled],
-      {
-        y: 0,
-        duration: 1,
-        ease: "power2.inOut",
-      },
+      { y: FINAL_OFFSET, duration: 1, ease: "power2.inOut" },
       0
     );
 
@@ -99,7 +86,7 @@ export function VennDiagram({
       aria-label="Venn diagram showing perfect fit intersection"
       role="img"
     >
-      {/* Outline sempre visibili - LINEE SOTTILI */}
+      {/* ✅ STROKE ALLINEATO AL RUBIK CUBE */}
       <circle
         ref={circleAOutlineRef}
         cx="200"
@@ -107,9 +94,8 @@ export function VennDiagram({
         r="110"
         fill="none"
         stroke="currentColor"
-        strokeWidth="0.5"
-        className="text-foreground/20"
-        style={{ transformOrigin: "200px 170px" }}
+        strokeWidth="0.15"  // ✅ Era 0.5, ora 0.15 (simile al cubo 0.1)
+        className="text-foreground/22"  // ✅ Era /20, ora /22 (come cubo)
       />
 
       <circle
@@ -119,12 +105,11 @@ export function VennDiagram({
         r="80"
         fill="none"
         stroke="currentColor"
-        strokeWidth="0.5"
-        className="text-foreground/20"
-        style={{ transformOrigin: "200px 330px" }}
+        strokeWidth="0.15"  // ✅ Allineato
+        className="text-foreground/22"  // ✅ Allineato
       />
 
-      {/* Fill colorati - OPACITY FISSA, sempre visibili */}
+      {/* Fill colorati */}
       <circle
         ref={circleAFilledRef}
         cx="200"

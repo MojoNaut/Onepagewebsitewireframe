@@ -83,7 +83,6 @@ function AccordionItem({
   tagline,
   tags,
   deliverables,
-  iconUrl,
   isOpen,
   onToggle,
   panelId,
@@ -91,12 +90,8 @@ function AccordionItem({
   const buttonId = `${panelId}-btn`;
   const ease = "ease-[cubic-bezier(0.22,1,0.36,1)]";
 
-  // Animazioni contenuto (fade-down)
-  const revealBase = cn(
-    "transform-gpu will-change-transform will-change-opacity",
-    "transition-all duration-500 motion-reduce:transition-none",
-    ease
-  );
+  const revealBase =
+    "transform-gpu will-change-transform will-change-opacity transition-all duration-500 motion-reduce:transition-none";
   const revealOpen = "opacity-100 translate-y-0";
   const revealClosed = "opacity-0 -translate-y-3";
 
@@ -104,113 +99,102 @@ function AccordionItem({
     <div className="relative isolate">
       <FullBleedDivider position="top" />
 
-   {/* Wrapper unico: watermark copre header + content */}
-<div className="relative overflow-hidden">
-  <WatermarkLayer iconUrl={iconUrl} isOpen={isOpen} ease={ease} />
-        {/* HEADER (centrato sempre) */}
-        <button
-          id={buttonId}
-          type="button"
-          onClick={onToggle}
-          aria-expanded={isOpen}
-          aria-controls={panelId}
-          className={cn(
-            "relative z-10 w-full py-10 md:py-14",
-            "hover:opacity-70 transition-opacity duration-300",
-            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground/30 focus-visible:ring-offset-4 focus-visible:ring-offset-background"
-          )}
-        >
-          {/* Centro: Titolo + Tags */}
-          <div className="relative z-10 flex flex-col items-center justify-center gap-4 px-10 md:px-16">
-            <h3 className="text-2xl md:text-4xl lg:text-5xl font-semibold uppercase tracking-tight text-center">
-              {title}
-            </h3>
+      <div className="relative">
+        {/* HEADER */}
+      <button
+  id={buttonId}
+  type="button"
+  onClick={onToggle}
+  aria-expanded={isOpen}
+  aria-controls={panelId}
+  className={cn(
+    "relative w-full h-24 md:h-28",
+    "hover:opacity-70 transition-opacity duration-300",
+    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground/30 focus-visible:ring-offset-4 focus-visible:ring-offset-background"
+  )}
+>
+  <div className="flex items-center justify-between h-full px-6 md:px-12 lg:px-16 max-w-3xl">
+    <h3 className="text-2xl md:text-4xl lg:text-5xl font-semibold uppercase tracking-tight">
+      {title}
+    </h3>
 
-            {/* Tags: solo quando open (fade-in) */}
-            {/* Tags: solo quando open (fade-in) - NON renderizzare se chiuso */}
-{tags && tags.length > 0 && isOpen && (
+    <span
+      className={cn(
+        "w-10 h-10 md:w-12 md:h-12 flex items-center justify-center",
+        "text-3xl md:text-4xl font-light",
+        "transition-transform duration-500",
+        ease,
+        isOpen && "rotate-45"
+      )}
+    >
+      +
+    </span>
+  </div>
+</button>
+
+{tags && tags.length > 0 && (
   <div
     className={cn(
-      "flex flex-wrap justify-center gap-2",
-      "transform-gpu will-change-transform will-change-opacity",
-      "transition-[opacity,transform] duration-500 motion-reduce:transition-none",
+      "px-6 md:px-12 lg:px-16 max-w-3xl pb-4",
+      "transition-[opacity,transform] duration-500",
       ease,
-      "opacity-100 translate-y-0 delay-150"
+      isOpen ? "opacity-100 translate-y-0 delay-150" : "opacity-0 -translate-y-2"
     )}
   >
-    {tags.map((tag, i) => (
-      <span
-        key={i}
-        className="inline-block px-4 py-1.5 text-xs uppercase tracking-wider border border-foreground/30 rounded-full whitespace-nowrap"
-      >
-        {tag}
-      </span>
-    ))}
+    <div className="flex flex-wrap gap-2">
+      {tags.map((tag, i) => (
+        <span
+          key={i}
+          className="px-4 py-1.5 text-xs uppercase tracking-wider border border-foreground/30 rounded-full"
+        >
+          {tag}
+        </span>
+      ))}
+    </div>
   </div>
 )}
-          </div>
 
-          {/* + / × fisso a destra (mai shift) */}
-          <span
-            className={cn(
-              "absolute right-0 top-1/2 -translate-y-1/2 z-20",
-              "w-10 h-10 md:w-12 md:h-12 flex items-center justify-center",
-              "text-3xl md:text-4xl font-light leading-none",
-              "transform-gpu transition-transform duration-500 motion-reduce:transition-none",
-              ease,
-              isOpen && "rotate-45"
-            )}
-          >
-            +
-          </span>
-        </button>
-
-        {/* CONTENT (accordion) */}
+        {/* CONTENT */}
         <div
           id={panelId}
           role="region"
           aria-labelledby={buttonId}
           className={cn(
-            "relative z-10",
-            "grid transition-[grid-template-rows,opacity] duration-700 motion-reduce:transition-none",
+            "grid transition-[grid-template-rows,opacity] duration-700",
             ease,
             isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
           )}
         >
           <div className="overflow-hidden">
-            <div className="pb-14 md:pb-16">
-              <div className="max-w-2xl mx-auto text-center">
-                {/* Tagline */}
-                {tagline && (
-                  <p
-                    className={cn(
-                      "text-lg md:text-xl text-muted-foreground mb-6 leading-relaxed",
-                      revealBase,
-                      isOpen ? `${revealOpen} delay-200` : `${revealClosed} delay-0`
-                    )}
-                  >
-                    {tagline}
-                  </p>
-                )}
+            <div className="pb-12 md:pb-10 px-6 md:px-12 lg:px-16 max-w-3xl">
+              {tagline && (
+                <p
+                  className={cn(
+                    "text-lg md:text-xl text-muted-foreground mb-6",
+                    revealBase,
+                    isOpen ? `${revealOpen} delay-200` : revealClosed
+                  )}
+                >
+                  {tagline}
+                </p>
+              )}
 
-                {/* Deliverables */}
-                {deliverables && deliverables.length > 0 && (
-                  <ul
-                    className={cn(
-                      "space-y-3 text-base md:text-lg text-muted-foreground",
-                      revealBase,
-                      isOpen ? `${revealOpen} delay-300` : `${revealClosed} delay-0`
-                    )}
-                  >
-                    {deliverables.map((item, i) => (
-                      <li key={i} className="flex items-start justify-center gap-3">
-                        <span className="text-foreground mt-1">•</span>
-                        <span className="text-left">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
+              {deliverables && deliverables.length > 0 && (
+                <ul
+                  className={cn(
+                    "space-y-3 text-base md:text-lg text-muted-foreground",
+                    revealBase,
+                    isOpen ? `${revealOpen} delay-300` : revealClosed
+                  )}
+                >
+                  {deliverables.map((item, i) => (
+                    <li key={i} className="flex gap-3">
+                      <span className="text-foreground">•</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           </div>
         </div>
@@ -218,6 +202,7 @@ function AccordionItem({
     </div>
   );
 }
+
 
 export function Services({ services = [] }: ServicesProps) {
   // state zero: tutti chiusi
