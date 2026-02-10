@@ -101,7 +101,7 @@ function AccordionItem({
 
       <div className="relative">
         {/* HEADER */}
-      <button
+<button
   id={buttonId}
   type="button"
   onClick={onToggle}
@@ -113,7 +113,7 @@ function AccordionItem({
     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground/30 focus-visible:ring-offset-4 focus-visible:ring-offset-background"
   )}
 >
-  <div className="flex items-center justify-between h-full px-6 md:px-12 lg:px-16 max-w-3xl">
+  <div className="flex items-center justify-between h-full px-6 md:px-12 lg:px-16">
     <h3 className="text-2xl md:text-4xl lg:text-5xl font-semibold uppercase tracking-tight">
       {title}
     </h3>
@@ -132,27 +132,33 @@ function AccordionItem({
   </div>
 </button>
 
+
+
 {tags && tags.length > 0 && (
   <div
     className={cn(
-      "px-6 md:px-12 lg:px-16 max-w-3xl pb-4",
-      "transition-[opacity,transform] duration-500",
+      "grid transition-[grid-template-rows,opacity] duration-500",
       ease,
-      isOpen ? "opacity-100 translate-y-0 delay-150" : "opacity-0 -translate-y-2"
+      isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
     )}
   >
-    <div className="flex flex-wrap gap-2">
-      {tags.map((tag, i) => (
-        <span
-          key={i}
-          className="px-4 py-1.5 text-xs uppercase tracking-wider border border-foreground/30 rounded-full"
-        >
-          {tag}
-        </span>
-      ))}
+    <div className="overflow-hidden">
+      <div className="px-6 md:px-12 lg:px-16 max-w-3xl pb-4">
+        <div className="flex flex-wrap gap-2">
+          {tags.map((tag, i) => (
+            <span
+              key={i}
+              className="px-4 py-1.5 text-xs uppercase tracking-wider border border-foreground/30 rounded-full"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
     </div>
   </div>
 )}
+
 
         {/* CONTENT */}
         <div
