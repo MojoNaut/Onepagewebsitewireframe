@@ -51,7 +51,7 @@ export function FAQ({ faqs = [], copy }: FAQProps) {
   const emptyText = copy?.emptyText || t('emptyText');
 
   return (
-    <section id="faq" className="scroll-mt-24 border-t border-border">
+    <section id="faq" className="scroll-mt-24  border-border">
       <div className="mx-auto max-w-280 px-6 md:px-8 py-20 md:py-32">
         <h2 className="text-xs uppercase tracking-[0.2em] font-medium mb-8 opacity-40">
           {heading}

@@ -24,7 +24,7 @@ export function FitFilter({ copy }: FitFilterProps) {
   ];
 
   return (
-    <section id="fit" className="scroll-mt-24 border-t border-border">
+    <section id="fit" className="scroll-mt-24 border-border">
       <div className="mx-auto max-w-[1400px] px-6 md:px-24 py-20 md:py-32">
         {/* DESKTOP: SVG sinistra | Testo destra */}
         {/* MOBILE: Testo sopra | SVG sotto (order) */}
