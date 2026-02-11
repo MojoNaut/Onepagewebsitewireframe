@@ -116,7 +116,7 @@ export function Process({ copy }: ProcessProps) {
         }}
       />
 
-      <div className="relative z-10 mx-auto max-w-350 px-6 md:px-12 lg:px-24 py-24 md:py-40">
+<div className="relative z-10 container py-20 md:py-28 lg:py-36">
         <p className="text-xs uppercase tracking-[0.3em] font-medium mb-20 md:mb-24 opacity-40">
           {heading}
         </p>

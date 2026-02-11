@@ -113,7 +113,7 @@ function AccordionItem({
     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground/30 focus-visible:ring-offset-4 focus-visible:ring-offset-background"
   )}
 >
-  <div className="flex items-center justify-between h-full px-6 md:px-12 lg:px-16">
+  <div className="flex items-center justify-between gap-6">
 <h3 className="flex-1 text-left text-2xl md:text-4xl lg:text-5xl font-semibold uppercase tracking-tight">
       {title}
     </h3>
@@ -149,11 +149,11 @@ function AccordionItem({
           )}
         >
           <div className="overflow-hidden">
-            <div className="pb-12 md:pb-10 px-6 md:px-12 lg:px-16 max-w-3xl">
+<div className="pb-12 md:pb-10 max-w-3xl">
               {tagline && (
                 <p
                   className={cn(
-                    "text-lg md:text-xl text-muted-foreground mb-6",
+                    "text-base sm:text-lg md:text-xl text-muted-foreground mb-6",
                     revealBase,
                     isOpen ? `${revealOpen} delay-200` : revealClosed
                   )}
@@ -219,7 +219,7 @@ export function Services({ services = [] }: ServicesProps) {
 
   return (
     <section id="servizi" className="scroll-mt-24 relative">
-      <div className="mx-auto max-w-350 px-6 md:px-12 lg:px-24 py-24 md:py-40">
+<div className="container ">
         <div className="relative">
           <FullBleedDivider position="bottom" />
 

@@ -45,7 +45,7 @@ export function Contact({ contactEmail, copy }: ContactProps) {
 
   return (
     <section id="contatti" className=" border-border">
-      <div className="mx-auto max-w-350 px-6 md:px-12 lg:px-24 py-24 md:py-40">
+<div className="container py-20 md:py-28 lg:py-36">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-center">
             {title}

@@ -92,7 +92,7 @@ export function Header({ settings }: HeaderProps) {
             : "bg-transparent"
         )}
       >
-        <div className="mx-auto max-w-350 px-6 md:px-12 lg:px-24">
+<div className="container">
           <div className="h-20 md:h-24 grid items-center grid-cols-[auto_1fr_auto] lg:grid-cols-[1fr_auto_1fr]">
             {/* LEFT: LOGO */}
             <div className="flex items-center justify-self-start">

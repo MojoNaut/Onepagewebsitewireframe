@@ -33,7 +33,7 @@ export function Footer({
 
   return (
     <footer className="border-t border-foreground/15">
-      <div className="mx-auto max-w-350 px-6 md:px-12 lg:px-24 py-16 md:py-20">
+<div className="container py-20 md:py-28">
         <div className="grid gap-12 lg:grid-cols-[1fr_auto] lg:items-end">
           {/* LEFT */}
           <div>

@@ -69,7 +69,7 @@ export function Work({ workItems = [], copy }: WorkProps) {
 
   return (
     <section id="case" className="scroll-mt-24 border-border">
-      <div className="mx-auto max-w-280 px-6 md:px-8 py-20 md:py-32">
+<div className="container py-20 md:py-28 lg:py-36">
         <h2 className="text-xs uppercase tracking-[0.2em] font-medium mb-3 opacity-40">
           {heading}
         </h2>

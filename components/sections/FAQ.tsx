@@ -52,7 +52,7 @@ export function FAQ({ faqs = [], copy }: FAQProps) {
 
   return (
     <section id="faq" className="scroll-mt-24  border-border">
-      <div className="mx-auto max-w-280 px-6 md:px-8 py-20 md:py-32">
+<div className="container py-20 md:py-28 lg:py-36">
         <h2 className="text-xs uppercase tracking-[0.2em] font-medium mb-8 opacity-40">
           {heading}
         </h2>
