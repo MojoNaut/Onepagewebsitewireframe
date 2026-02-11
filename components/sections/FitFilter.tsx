@@ -15,7 +15,7 @@ export function FitFilter({ copy }: FitFilterProps) {
   const notForItems = copy?.notForItems || [];
 
   return (
-    <section id="fit" className="relative scroll-mt-24 border-t border-border overflow-hidden">
+    <section id="fit" className="relative scroll-mt-24 overflow-hidden">
       <div className="mx-auto max-w-[1400px] px-6 md:px-24 py-20 md:py-32">
         
         {/* DESKTOP: Grid 2 colonne */}

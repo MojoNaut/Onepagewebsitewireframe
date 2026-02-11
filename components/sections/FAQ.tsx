@@ -15,7 +15,7 @@ function FAQItem({ question, answer }: FAQItemProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="border-t border-border">
+    <div className="">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="w-full py-6 md:py-8 flex items-start justify-between gap-4 text-left hover:opacity-70 transition-opacity"
