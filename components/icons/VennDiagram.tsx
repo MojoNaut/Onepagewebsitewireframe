@@ -1,6 +1,4 @@
-// components/icons/VennDiagram.tsx
 "use client";
-
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -8,72 +6,72 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 type VennDiagramProps = {
-  colorA?: string;
-  colorB?: string;
-  fillOpacity?: number;
   instanceId?: string;
 };
 
-export function VennDiagram({
-  colorA = "#3B82F6",
-  colorB = "#EC4899",
-  fillOpacity = 0.18, // ✅ Aumentato da 0.15
-  instanceId = "venn-default",
-}: VennDiagramProps) {
+export function VennDiagram({ instanceId = "venn-default" }: VennDiagramProps) {
   const svgRef = useRef<SVGSVGElement>(null);
-  const circleAOutlineRef = useRef<SVGCircleElement>(null);
-  const circleBOutlineRef = useRef<SVGCircleElement>(null);
-  const circleAFilledRef = useRef<SVGCircleElement>(null);
-  const circleBFilledRef = useRef<SVGCircleElement>(null);
+  const circleARef = useRef<SVGCircleElement>(null);
+  const circleBRef = useRef<SVGCircleElement>(null);
+  const circleCRef = useRef<SVGCircleElement>(null);
+
+  // Debug labels — refs per animarle insieme ai cerchi
+  const labelARef = useRef<SVGTextElement>(null);
+  const labelBRef = useRef<SVGTextElement>(null);
+  const labelCRef = useRef<SVGTextElement>(null);
 
   useEffect(() => {
     if (
       !svgRef.current ||
-      !circleAOutlineRef.current ||
-      !circleBOutlineRef.current ||
-      !circleAFilledRef.current ||
-      !circleBFilledRef.current
-    ) {
-      return;
-    }
+      !circleARef.current ||
+      !circleBRef.current ||
+      !circleCRef.current
+    ) return;
 
     const svg = svgRef.current;
-    const circleAOutline = circleAOutlineRef.current;
-    const circleBOutline = circleBOutlineRef.current;
-    const circleAFilled = circleAFilledRef.current;
-    const circleBFilled = circleBFilledRef.current;
+    const circleA = circleARef.current;
+    const circleB = circleBRef.current;
+    const circleC = circleCRef.current;
+    const labelA = labelARef.current;
+    const labelB = labelBRef.current;
+    const labelC = labelCRef.current;
 
-    const INITIAL_OFFSET = 50; // ✅ Cerchi iniziano vicini
-    const FINAL_OFFSET = 22;   // ✅ 40% overlap
+    // ── Posizioni ──
+    // Centro SVG = cy 250. Tutti partono raggruppati lì.
+    // A (top) parte da 250, arriva a 150 → si muove di -100
+    // B (mid) resta fermo a 250
+    // C (bot) parte da 250, arriva a 350 → si muove di +100
+    const SPREAD = 100; // distanza che A e C percorrono dal centro
 
-    gsap.set([circleAOutline, circleAFilled], { y: -INITIAL_OFFSET });
-    gsap.set([circleBOutline, circleBFilled], { y: INITIAL_OFFSET });
+    // Stato iniziale: tutti al centro (overlap massimo)
+    gsap.set([circleA, labelA], { y: SPREAD * 0.7 });   // A nasce spostato in basso (+100 → a 250)
+    gsap.set([circleC, labelC], { y: -SPREAD * 0.7 });   // C nasce spostato in alto (-100 → a 250)
+    // B e labelB restano a 0 (già a 250)
 
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: svg,
         start: "top 80%",
-        end: "bottom 30%",
-        scrub: 1.5,
-        // markers: true,
+        end: "bottom 60%",
+        scrub: 1.2,
       },
     });
 
+    // A torna alla sua posizione naturale (y:0 → cy=150)
+    // C torna alla sua posizione naturale (y:0 → cy=350)
     tl.to(
-      [circleAOutline, circleAFilled],
-      { y: -FINAL_OFFSET, duration: 1, ease: "power2.inOut" },
+      [circleA, labelA],
+      { y: 0, duration: 1, ease: "power2.inOut" },
       0
     ).to(
-      [circleBOutline, circleBFilled],
-      { y: FINAL_OFFSET, duration: 1, ease: "power2.inOut" },
+      [circleC, labelC],
+      { y: 0, duration: 1, ease: "power2.inOut" },
       0
     );
 
     return () => {
-      ScrollTrigger.getAll().forEach((trigger) => {
-        if (trigger.vars.trigger === svg) {
-          trigger.kill();
-        }
+      ScrollTrigger.getAll().forEach((t) => {
+        if (t.vars.trigger === svg) t.kill();
       });
     };
   }, []);
@@ -81,79 +79,51 @@ export function VennDiagram({
   return (
     <svg
       ref={svgRef}
-      viewBox="0 0 400 600"
+      viewBox="0 0 440 560"
       className="w-full h-auto"
-      aria-label="Venn diagram showing perfect fit intersection"
+      aria-label="Venn diagram"
       role="img"
     >
-      {/* ✅ STROKE ALLINEATO AL RUBIK CUBE */}
+      {/* Cerchio A — top */}
       <circle
-        ref={circleAOutlineRef}
-        cx="200"
-        cy="170"
-        r="110"
+        ref={circleARef}
+        cx="220"
+        cy="160"
+        r="140"
         fill="none"
         stroke="currentColor"
-        strokeWidth="0.15"  // ✅ Era 0.5, ora 0.15 (simile al cubo 0.1)
-        className="text-foreground/22"  // ✅ Era /20, ora /22 (come cubo)
+       strokeWidth="0.15"
+className="text-foreground/22"
       />
 
+      {/* Cerchio B — centro */}
       <circle
-        ref={circleBOutlineRef}
-        cx="200"
-        cy="330"
-        r="80"
+        ref={circleBRef}
+        cx="220"
+        cy="280"
+        r="140"
         fill="none"
         stroke="currentColor"
-        strokeWidth="0.15"  // ✅ Allineato
-        className="text-foreground/22"  // ✅ Allineato
+            strokeWidth="0.15"
+className="text-foreground/22"
       />
 
-      {/* Fill colorati */}
+      {/* Cerchio C — bottom */}
       <circle
-        ref={circleAFilledRef}
-        cx="200"
-        cy="170"
-        r="110"
-        fill={colorA}
-        opacity={fillOpacity}
-        style={{ transformOrigin: "200px 170px", mixBlendMode: "multiply" }}
+        ref={circleCRef}
+        cx="220"
+        cy="400"
+        r="140"
+        fill="none"
+        stroke="currentColor"
+       strokeWidth="0.15"
+className="text-foreground/22"
       />
 
-      <circle
-        ref={circleBFilledRef}
-        cx="200"
-        cy="330"
-        r="80"
-        fill={colorB}
-        opacity={fillOpacity}
-        style={{ transformOrigin: "200px 330px", mixBlendMode: "multiply" }}
-      />
-
-      {/* Labels */}
-      <text
-        x="200"
-        y="45"
-        fontSize="16"
-        fontWeight="500"
-        fill="currentColor"
-        className="text-foreground/30 select-none"
-        textAnchor="middle"
-      >
-        A
-      </text>
-
-      <text
-        x="200"
-        y="430"
-        fontSize="16"
-        fontWeight="500"
-        fill="currentColor"
-        className="text-foreground/30 select-none"
-        textAnchor="middle"
-      >
-        B
-      </text>
+      {/* Debug labels — rimuovere dopo */}
+      <text ref={labelARef} x="200" y="160" fontSize="14" fontWeight="500" fill="currentColor" className="text-foreground/25 select-none" textAnchor="middle" dominantBaseline="central">A</text>
+      <text ref={labelBRef} x="200" y="280" fontSize="14" fontWeight="500" fill="currentColor" className="text-foreground/25 select-none" textAnchor="middle" dominantBaseline="central">B</text>
+      <text ref={labelCRef} x="200" y="400" fontSize="14" fontWeight="500" fill="currentColor" className="text-foreground/25 select-none" textAnchor="middle" dominantBaseline="central">C</text>
     </svg>
   );
 }
