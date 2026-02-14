@@ -35,6 +35,18 @@ export type SiteSettings = {
     notForTitle: string;
     notForItems: string[];
   };
+process: {
+   heading: string;
+   steps: {
+     number: string;
+     title: string;
+     description: string;
+   }[];
+ };
+  faqSection: {
+    heading: string;
+    emptyText: string;
+  };
   footer: {
     headline: string;
     line: string;

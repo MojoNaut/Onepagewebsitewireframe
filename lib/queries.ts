@@ -45,7 +45,19 @@ export const siteSettingsQuery = groq`
       "notForTitle": fitFilter.notForTitle[$locale],
       "notForItems": fitFilter.notForItems[$locale]
     },
-
+        // process / metodo
+process {
+   "heading": heading[$locale],
+   "steps": steps[] {
+     number,
+     "title": title[$locale],
+     "description": description[$locale]
+   }
+ },
+ "faqSection": {
+    "heading": faqSection.heading[$locale],
+     "emptyText": faqSection.emptyText[$locale]
+   },
     // FOOTER
     "footer": {
       "headline": footer.headline[$locale],
@@ -77,7 +89,7 @@ export const workItemsQuery = groq`
 export const faqsQuery = groq`
   *[_type == "faq"] | order(order asc) {
     _id,
-    question,
-    answer
+   "question": question[$locale],
+     "answer": answer[$locale]
   }
 `;

@@ -6,7 +6,8 @@ import { Button } from "@/components/ui/Button";
 import type { SiteSettings } from "@/types/content";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { IsometricRubikScrollCube } from "@/components/icons/IsometricRubikScrollCube";
+import { IsometricRubikFullCube } from "@/components/icons/IsometricRubikFullCube";
+
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -138,14 +139,8 @@ export function Hero({ settings }: HeroProps) {
               text-[hsl(var(--cube-soft)/0.22)]
             "
           >
-            <IsometricRubikScrollCube
-              className="w-full h-full"
-              turns={3}
-              steppedRotation
-              animateLid
-              externalProgress={cubeProgress}
-              
-            />
+           <IsometricRubikFullCube className="w-full h-full" externalProgress={cubeProgress} />
+
           </div>
         </div>
       </div>

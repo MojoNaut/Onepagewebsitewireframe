@@ -11,7 +11,9 @@ export const siteSettingsType = defineType({
     { name: "header", title: "Header" },
     { name: "hero", title: "Hero Section" },
     { name: "services", title: "Services Section" },
-    { name: "fitFilter", title: "Fit Filter Section" },  // ✅ NUOVO
+    { name: "fitFilter", title: "Fit Filter Section" },  
+     { name: "process", title: "Process / Metodo" },
+     { name: "faq", title: "FAQ Section" },
     { name: "footer", title: "Footer" },
   ],
 
@@ -188,7 +190,88 @@ export const siteSettingsType = defineType({
         }),
       ],
     }),
-
+// ==================================================
+// PROCESS / METODO
+// ==================================================
+defineField({
+  name: "process",
+  title: "Process Section",
+  type: "object",
+  group: "process",
+  fields: [
+    defineField({
+      name: "heading",
+      title: "Section Heading",
+      type: "localizedString",
+      description: "Es: Metodo / Method",
+    }),
+    defineField({
+      name: "steps",
+      title: "Process Steps",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          fields: [
+            defineField({
+              name: "number",
+              title: "Step Number",
+              type: "string",
+              description: "Es: 01, 02, 03...",
+            }),
+            defineField({
+              name: "title",
+              title: "Step Title",
+              type: "localizedString",
+              description: "Es: Allineamento / Alignment",
+            }),
+            defineField({
+              name: "description",
+              title: "Step Description",
+              type: "localizedText",
+              description: "Descrizione breve dello step",
+            }),
+          ],
+          preview: {
+            select: {
+              number: "number",
+              title: "title.it",
+            },
+            prepare({ number, title }) {
+              return {
+                title: `${number} — ${title || "Untitled"}`,
+              };
+            },
+          },
+        },
+      ],
+      validation: (rule) => rule.max(6),
+    }),
+  ],
+}),
+// ==================================================
+// FAQ SECTION
+// ==================================================
+defineField({
+  name: "faqSection",
+  title: "FAQ Section",
+  type: "object",
+  group: "faq",
+  fields: [
+    defineField({
+      name: "heading",
+      title: "Section Heading",
+      type: "localizedString",
+      description: "Es: FAQ / FAQ",
+    }),
+    defineField({
+      name: "emptyText",
+      title: "Empty State Text",
+      type: "localizedString",
+      description: "Testo quando non ci sono FAQ",
+    }),
+  ],
+}),
     // ==================================================
     // FOOTER
     // ==================================================

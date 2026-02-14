@@ -5,10 +5,23 @@ import type { SiteSettings } from "@/types/content";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-if (typeof window !== 'undefined') {
+if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
+/* ── Full-bleed divider (stesso pattern di Services) ── */
+function FullBleedDivider({ position = "top" }: { position?: "top" | "bottom" }) {
+  return (
+    <div
+      aria-hidden
+      className={`pointer-events-none absolute left-1/2 -translate-x-1/2 w-[100vw] border-border ${
+        position === "top" ? "top-0 border-t" : "bottom-0 border-b"
+      }`}
+    />
+  );
+}
+
+/* ── Step Card ── */
 interface ProcessStepCardProps {
   number: string;
   title: string;
@@ -25,45 +38,48 @@ function ProcessStepCard({ number, title, description, index }: ProcessStepCardP
     gsap.from(stepRef.current, {
       scrollTrigger: {
         trigger: stepRef.current,
-        start: "top 80%",
-        end: "top 50%",
+        start: "top 85%",
+        end: "top 55%",
         toggleActions: "play none none reverse",
       },
       opacity: 0,
-      y: 80,
-      duration: 0.9,
-      delay: index * 0.15,
+      y: 60,
+      duration: 0.8,
+      delay: index * 0.1,
       ease: "power3.out",
     });
   }, [index]);
 
   return (
-    <div ref={stepRef} className="grid grid-cols-[140px_1fr] md:grid-cols-[200px_1fr] gap-10 md:gap-20 py-14 md:py-20 border-t border-border">
-      {/* Number */}
-      <div className="text-7xl md:text-9xl lg:text-[160px] font-bold opacity-8 leading-none tracking-tighter">
-        {number}
-      </div>
+    <div ref={stepRef} className="relative">
+      <FullBleedDivider position="top" />
 
-      {/* Content */}
-      <div className="pt-3 md:pt-6">
-        <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold uppercase tracking-tight mb-6 md:mb-8">
-          {title}
-        </h3>
-        <p className="text-base md:text-lg lg:text-xl text-muted-foreground leading-relaxed max-w-3xl">
-          {description}
-        </p>
+      <div className="grid grid-cols-[60px_1fr] md:grid-cols-[80px_1fr] gap-6 md:gap-12 py-12 md:py-16 lg:py-20">
+        {/* Number — ridotto, leggero */}
+        <div className="text-2xl md:text-3xl font-medium text-foreground/30 pt-1">
+          {number}
+        </div>
+
+        {/* Content */}
+        <div>
+          <h3 className="text-xl md:text-2xl lg:text-3xl font-bold uppercase tracking-tight mb-4 md:mb-6">
+            {title}
+          </h3>
+          <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl">
+            {description}
+          </p>
+        </div>
       </div>
     </div>
   );
 }
 
+/* ── Main Section ── */
 type ProcessProps = {
-  copy?: SiteSettings['process'];
+  copy?: SiteSettings["process"];
 };
 
 export function Process({ copy }: ProcessProps) {
-  const circleRef = useRef<HTMLDivElement>(null);
-  
   const heading = copy?.heading || "Metodo";
   const steps = copy?.steps || [
     {
@@ -88,43 +104,18 @@ export function Process({ copy }: ProcessProps) {
     },
   ];
 
-  useEffect(() => {
-    if (!circleRef.current) return;
-
-    gsap.to(circleRef.current, {
-      scrollTrigger: {
-        trigger: circleRef.current,
-        start: "top center",
-        end: "bottom center",
-        scrub: 1.5,
-      },
-      y: 250,
-      scale: 1.3,
-      ease: "none",
-    });
-  }, []);
-
   return (
-    <section id="metodo" className="scroll-mt-24 relative  border-border overflow-hidden">
-      {/* Decorative Circle */}
-      <div
-        ref={circleRef}
-        className="absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2 w-150 h-150 md:w-225 md:h-225 rounded-full opacity-35 pointer-events-none"
-        style={{
-          background: 'linear-gradient(135deg, #C4B5FD 0%, #BFDBFE 100%)',
-          filter: 'blur(120px)',
-        }}
-      />
+    <section id="metodo" className="scroll-mt-24 relative overflow-hidden">
+      <div className="relative container py-20 md:py-28 lg:py-36">
+       
 
-<div className="relative z-10 container py-20 md:py-28 lg:py-36">
-        <p className="text-xs uppercase tracking-[0.3em] font-medium mb-20 md:mb-24 opacity-40">
-          {heading}
-        </p>
-
-        <div className="border-b border-border">
+        {/* Steps */}
+        <div className="relative">
           {steps.map((step, index) => (
             <ProcessStepCard key={index} {...step} index={index} />
           ))}
+          {/* Divider finale sotto l'ultimo step */}
+          <FullBleedDivider position="bottom" />
         </div>
       </div>
     </section>

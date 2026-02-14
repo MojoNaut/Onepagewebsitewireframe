@@ -20,4 +20,7 @@ export const structure = (S: StructureBuilder) =>
       // Services (list)
       S.documentTypeListItem("service")
         .title("Services"),
+           // FQA (list)
+          S.documentTypeListItem("faq")
+     .title("FAQ"),
     ]);

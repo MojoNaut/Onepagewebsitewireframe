@@ -45,6 +45,14 @@ const fallbackSiteSettings = {
     notForTitle: "Not for you if:",
     notForItems: [],
   },
+process: {
+   heading: "Metodo",
+   steps: [],
+ },
+  faqSection: {
+    heading: "FAQ",
+    emptyText: "Domande frequenti in arrivo",
+  },
   footer: {
     headline: "",
     line: "",
