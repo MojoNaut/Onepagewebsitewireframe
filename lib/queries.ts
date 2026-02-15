@@ -58,6 +58,11 @@ process {
     "heading": faqSection.heading[$locale],
      "emptyText": faqSection.emptyText[$locale]
    },
+    "workSection": {
+      "heading": workSection.heading[$locale],
+      "intro": workSection.intro[$locale],
+      "emptyText": workSection.emptyText[$locale]
+    },
     // FOOTER
     "footer": {
       "headline": footer.headline[$locale],
@@ -80,9 +85,15 @@ export const servicesQuery = groq`
 export const workItemsQuery = groq`
   *[_type == "workItem"] | order(order asc) {
     _id,
-    title,
-    description,
-    "imageUrl": image.asset->url
+    "title": title[$locale],
+    clientName,
+    "tags": tags[$locale],
+    "summary": summary[$locale],
+    "deliverables": deliverables[$locale],
+    "imageUrl": image.asset->url,
+    liveUrl,
+    featured,
+    order
   }
 `;
 

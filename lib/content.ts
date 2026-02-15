@@ -53,6 +53,11 @@ process: {
     heading: "FAQ",
     emptyText: "Domande frequenti in arrivo",
   },
+  workSection: {
+    heading: "Casi",
+    intro: "Progetti selezionati",
+    emptyText: "Casi in arrivo",
+  },
   footer: {
     headline: "",
     line: "",
@@ -80,8 +85,8 @@ export async function loadSiteContent(
     const [siteSettings, services, workItems, faqs] = await Promise.all([
       client.fetch(siteSettingsQuery, { locale }),
       client.fetch(servicesQuery, { locale }),
-      client.fetch(workItemsQuery),
-      client.fetch(faqsQuery),
+     client.fetch(workItemsQuery, { locale }),
+      client.fetch(faqsQuery, { locale }),
     ]);
 
     return {

@@ -47,6 +47,11 @@ process: {
     heading: string;
     emptyText: string;
   };
+  workSection: {
+    heading: string;
+    intro: string;
+    emptyText: string;
+  };
   footer: {
     headline: string;
     line: string;
@@ -65,12 +70,14 @@ export type Service = {
 export type WorkItem = {
   _id: string;
   title: string;
-  description?: string;
-  imageUrl?: string;
-  type?: string;
+  clientName?: string;
+  tags?: string[];
   summary?: string;
+  deliverables?: string[];
+  imageUrl?: string;
   liveUrl?: string;
   featured?: boolean;
+  order?: number;
 };
 
 export type FAQ = {

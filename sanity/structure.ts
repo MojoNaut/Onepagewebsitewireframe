@@ -23,4 +23,6 @@ export const structure = (S: StructureBuilder) =>
            // FQA (list)
           S.documentTypeListItem("faq")
      .title("FAQ"),
+     S.documentTypeListItem("workItem")
+  .title("Work / Cases"),
     ]);

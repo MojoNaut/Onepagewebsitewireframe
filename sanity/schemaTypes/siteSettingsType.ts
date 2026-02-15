@@ -14,6 +14,7 @@ export const siteSettingsType = defineType({
     { name: "fitFilter", title: "Fit Filter Section" },  
      { name: "process", title: "Process / Metodo" },
      { name: "faq", title: "FAQ Section" },
+     { name: "work", title: "Work Section" },
     { name: "footer", title: "Footer" },
   ],
 
@@ -269,6 +270,34 @@ defineField({
       title: "Empty State Text",
       type: "localizedString",
       description: "Testo quando non ci sono FAQ",
+    }),
+  ],
+}),
+// ==================================================
+// WORK SECTION
+// ==================================================
+defineField({
+  name: "workSection",
+  title: "Work Section",
+  type: "object",
+  group: "work",
+  fields: [
+    defineField({
+      name: "heading",
+      title: "Section Heading",
+      type: "localizedString",
+      description: "Es: Casi / Work",
+    }),
+    defineField({
+      name: "intro",
+      title: "Section Intro",
+      type: "localizedString",
+      description: "Sottotitolo breve",
+    }),
+    defineField({
+      name: "emptyText",
+      title: "Empty State Text",
+      type: "localizedString",
     }),
   ],
 }),
