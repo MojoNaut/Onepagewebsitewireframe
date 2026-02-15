@@ -58,6 +58,18 @@ process: {
     intro: "Progetti selezionati",
     emptyText: "Casi in arrivo",
   },
+ contactSection: {
+   title: "Parliamone",
+   subtitle: "Compila il form e ti rispondo entro 24h",
+   submitLabel: "Invia richiesta",
+   nameLabel: "Nome",
+   namePlaceholder: "Il tuo nome",
+   emailLabel: "Email",
+   emailPlaceholder: "la.tua@email.com",
+   messageLabel: "Messaggio",
+   messagePlaceholder: "Raccontami del tuo progetto...",
+   emailFallbackText: "Oppure scrivimi direttamente:",
+ },
   footer: {
     headline: "",
     line: "",

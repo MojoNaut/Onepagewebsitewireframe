@@ -52,6 +52,19 @@ process: {
     intro: string;
     emptyText: string;
   };
+ contactSection: {
+   title: string;
+   subtitle: string;
+   submitLabel: string;
+   nameLabel: string;
+   namePlaceholder: string;
+   emailLabel: string;
+   emailPlaceholder: string;
+   messageLabel: string;
+   messagePlaceholder: string;
+   emailFallbackText: string;
+ };
+
   footer: {
     headline: string;
     line: string;

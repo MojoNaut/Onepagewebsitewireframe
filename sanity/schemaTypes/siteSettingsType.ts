@@ -15,6 +15,7 @@ export const siteSettingsType = defineType({
      { name: "process", title: "Process / Metodo" },
      { name: "faq", title: "FAQ Section" },
      { name: "work", title: "Work Section" },
+     { name: "contact", title: "Contact Section" },
     { name: "footer", title: "Footer" },
   ],
 
@@ -298,6 +299,71 @@ defineField({
       name: "emptyText",
       title: "Empty State Text",
       type: "localizedString",
+    }),
+  ],
+}),
+// ==================================================
+// CONTACT SECTION
+// ==================================================
+defineField({
+  name: "contactSection",
+  title: "Contact Section",
+  type: "object",
+  group: "contact",
+  fields: [
+    defineField({
+      name: "title",
+      title: "Title",
+      type: "localizedString",
+      description: "Es: Parliamone / Let's talk",
+    }),
+    defineField({
+      name: "subtitle",
+      title: "Subtitle",
+      type: "localizedText",
+      description: "Testo sotto il titolo",
+    }),
+    defineField({
+      name: "submitLabel",
+      title: "Submit Button Label",
+      type: "localizedString",
+      description: "Es: Invia richiesta / Send",
+    }),
+    defineField({
+      name: "nameLabel",
+      title: "Name Field Label",
+      type: "localizedString",
+    }),
+    defineField({
+      name: "namePlaceholder",
+      title: "Name Placeholder",
+      type: "localizedString",
+    }),
+    defineField({
+      name: "emailLabel",
+      title: "Email Field Label",
+      type: "localizedString",
+    }),
+    defineField({
+      name: "emailPlaceholder",
+      title: "Email Placeholder",
+      type: "localizedString",
+    }),
+    defineField({
+      name: "messageLabel",
+      title: "Message Field Label",
+      type: "localizedString",
+    }),
+    defineField({
+      name: "messagePlaceholder",
+      title: "Message Placeholder",
+      type: "localizedString",
+    }),
+    defineField({
+      name: "emailFallbackText",
+      title: "Email Fallback Text",
+      type: "localizedString",
+      description: "Es: Oppure scrivimi direttamente:",
     }),
   ],
 }),

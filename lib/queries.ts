@@ -63,6 +63,18 @@ process {
       "intro": workSection.intro[$locale],
       "emptyText": workSection.emptyText[$locale]
     },
+    "contactSection": {
+   "title": contactSection.title[$locale],
+     "subtitle": contactSection.subtitle[$locale],
+     "submitLabel": contactSection.submitLabel[$locale],
+     "nameLabel": contactSection.nameLabel[$locale],
+     "namePlaceholder": contactSection.namePlaceholder[$locale],
+     "emailLabel": contactSection.emailLabel[$locale],
+     "emailPlaceholder": contactSection.emailPlaceholder[$locale],
+     "messageLabel": contactSection.messageLabel[$locale],
+     "messagePlaceholder": contactSection.messagePlaceholder[$locale],
+     "emailFallbackText": contactSection.emailFallbackText[$locale]
+   },
     // FOOTER
     "footer": {
       "headline": footer.headline[$locale],

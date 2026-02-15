@@ -2,6 +2,7 @@
 import { siteSettingsType } from "./siteSettingsType";
 import { serviceType } from "./serviceType";
 import { faqType } from "./faqType";
+import { workItemType } from "./workItemType";
 import { 
   localizedString, 
   localizedText, 
@@ -17,6 +18,7 @@ export const schemaTypes = [
   siteSettingsType,
     serviceType,
     faqType,
+     workItemType,
 ];
 
 export const schema = {
